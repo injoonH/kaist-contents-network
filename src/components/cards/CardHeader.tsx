@@ -8,7 +8,7 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  border-bottom: 1px solid ${(props) => props.theme.color.navbar_shadow};
+  border-bottom: 1px solid ${(props) => props.theme.navbar_shadow};
 `;
 
 const IconBtn = styled.button`
@@ -21,11 +21,11 @@ const IconBtn = styled.button`
 
   & > svg {
     font-size: 2rem;
-    color: ${(props) => props.theme.color.icon};
+    color: ${(props) => props.theme.icon};
   }
 
   &:hover > svg {
-    color: ${(props) => props.theme.color.icon_hover};
+    color: ${(props) => props.theme.icon_hover};
   }
 `;
 

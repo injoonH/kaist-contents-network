@@ -7,7 +7,7 @@ import { CardHeader } from "./CardHeader";
 const Container = styled(motion.div)`
   border-radius: 11px;
   overflow: hidden;
-  background-color: ${(props) => props.theme.color.card_background};
+  background-color: ${(props) => props.theme.card_background};
 
   max-width: 40rem;
   height: 90%;
