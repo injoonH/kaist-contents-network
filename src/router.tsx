@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage, LoginPage } from "@/routes";
 import { MainLayout } from "@/layouts";
+import { IdeaInfo } from "@/routes/IdeaInfo";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "ideaInfo/:ideaId",
-        element: <div>Idea Info</div>,
+        element: <IdeaInfo />,
       },
       {
         path: "linkInfo/:linkId",

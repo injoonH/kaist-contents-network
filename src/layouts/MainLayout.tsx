@@ -1,11 +1,13 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, useOutlet } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
+import { colors } from "@/theme";
 
 const Nav = styled.nav`
   display: flex;
 
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid ${colors.white};
 
   & > a {
     flex: 1;
@@ -13,16 +15,25 @@ const Nav = styled.nav`
     padding: 1rem;
 
     text-align: center;
+    color: ${colors.gray_50};
 
     &:hover {
-      background-color: #424242;
+      background-color: ${colors.gray_800};
     }
   }
 `;
 
 export const MainLayout: React.FC = () => {
+  const outlet = useOutlet();
+
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
       <Nav>
         <Link to="">Home</Link>
         <hr />
@@ -38,7 +49,16 @@ export const MainLayout: React.FC = () => {
         <hr />
         <Link to="linkFactory">Link Factory</Link>
       </Nav>
-      <Outlet />
+      <div
+        style={{
+          display: "flex",
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <AnimatePresence>{outlet}</AnimatePresence>
+      </div>
     </div>
   );
 };
