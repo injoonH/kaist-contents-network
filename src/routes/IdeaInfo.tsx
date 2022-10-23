@@ -1,4 +1,4 @@
-import { CardLayout } from "@/components/cards";
+import { CardLayout } from "@/components/card";
 import React from "react";
 import styled from "styled-components";
 
