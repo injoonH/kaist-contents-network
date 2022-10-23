@@ -24,6 +24,8 @@ export const MainLayout: React.FC = () => {
   return (
     <div>
       <Nav>
+        <Link to="">Home</Link>
+        <hr />
         <Link to="ideaInfo/1">Idea Info</Link>
         <hr />
         <Link to="linkInfo/1">Link Info</Link>
