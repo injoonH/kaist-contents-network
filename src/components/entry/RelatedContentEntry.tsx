@@ -8,6 +8,7 @@ import {
 } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
 import styled from "styled-components";
+import { contentType, relatedContentType } from "@/types";
 
 const Entry = styled.div`
   display: flex;
@@ -70,15 +71,6 @@ const InfoContainer = styled.div`
     }
   }
 `;
-
-type contentType = "instagram" | "youtube" | null;
-
-export type relatedContentType = {
-  entryType: "anchor" | "removable";
-  content: contentType;
-  url: string;
-  title?: string;
-};
 
 const getLogo = (content: contentType): IconType => {
   switch (content) {
