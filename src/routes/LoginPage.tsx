@@ -61,9 +61,7 @@ export const LoginPage: React.FC = () => {
         있는 모든 사람들의 생각을 들여다 볼 수 있어요. 풍부하고 개성 넘치는
         여러분의 생각으로 카이스트의 집단 두뇌를 만들어 주세요!
       </Description>
-      <LoginButton
-        href={`${import.meta.env.VITE_API_BASE}/v1/auth/sso_request`}
-      >
+      <LoginButton href={`${import.meta.env.VITE_API_BASE}/auth/sso_request`}>
         Login
       </LoginButton>
     </Container>

@@ -5,12 +5,16 @@ import styled from "styled-components";
 import { CardHeader } from "./CardHeader";
 
 const Container = styled(motion.div)`
-  border-radius: 11px;
-  overflow: hidden;
-  background-color: ${(props) => props.theme.card_background};
+  display: flex;
+  flex-direction: column;
 
+  overflow: hidden;
+
+  border-radius: ${(props) => props.theme.border_radius_big};
   max-width: 40rem;
   height: 90%;
+
+  background-color: ${(props) => props.theme.card_background};
 `;
 
 export const CardLayout: React.FC<{ children: React.ReactNode }> = ({

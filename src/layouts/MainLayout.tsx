@@ -31,7 +31,8 @@ export const MainLayout: React.FC = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        height: "100%",
+
+        height: "inherit",
       }}
     >
       <Nav>
@@ -52,9 +53,11 @@ export const MainLayout: React.FC = () => {
       <div
         style={{
           display: "flex",
-          flex: 1,
+          flexGrow: 1,
           justifyContent: "center",
           alignItems: "center",
+
+          height: "90%",
         }}
       >
         <AnimatePresence>{outlet}</AnimatePresence>
