@@ -1,4 +1,5 @@
 import React from "react";
+import { useLoaderData } from "react-router-dom";
 import { IoGitCommitOutline } from "react-icons/io5";
 import {
   Button,
@@ -10,48 +11,44 @@ import {
 } from "@/components/atom";
 import { CardBody, CardLayout } from "@/components/card";
 import { AuthorEntry, RelatedContentEntry } from "@/components/entry";
+import { itemResType } from "@/types";
 
 export const IdeaInfo: React.FC = () => {
+  const data = useLoaderData() as itemResType;
+
   return (
     <CardLayout>
       <CardBody.scroll>
         <Flex.column_center gap="0.8rem">
-          <Image
-            src="https://www.kaist.ac.kr/site/kr/img/content/sub01/ui_img10.jpg"
-            size="18rem"
-          />
+          <Image src={data.imageSource} size="18rem" />
           <Flex.column_center style={{ width: "100%" }}>
-            <Text.idea>Idea 1</Text.idea>
-            <Text.title>Academic Cultural Complex</Text.title>
+            <Text.idea>Idea {data.id}</Text.idea>
+            <Text.title>{data.title}</Text.title>
           </Flex.column_center>
           <InfoButton>
             <IoGitCommitOutline />
-            Show Links (2)
+            Show Links ({data.linkedNodesCounts})
           </InfoButton>
         </Flex.column_center>
         <Divider />
         <Text.subtitle>Description</Text.subtitle>
-        <Text.paragraph>
-          The main library reopened in 2018 as the Academic Cultural Complex.
-          The main library contains the bulk of KAIST's collections, which
-          support research, teaching, and learning. The Academic Cultural
-          Complex also provides collaborative working spaces, an idea factory, a
-          multimedia complex, an auditorium, and a sky lounge where various
-          academic and cultural events take place.
-        </Text.paragraph>
+        <Text.paragraph>{data.description}</Text.paragraph>
         <Divider />
         <Text.subtitle>Related Contents</Text.subtitle>
-        <RelatedContentEntry
-          entryType="anchor"
-          content="youtube"
-          url="https://youtu.be/LsIZ8TldNyI"
-          title="2022 KAIST Research Day"
-        />
+        {data.contents.map((content, idx) => (
+          <RelatedContentEntry
+            key={idx}
+            entryType="anchor"
+            content={content.iconType}
+            url={content.url}
+            title={content.title}
+          />
+        ))}
         <Divider />
         <Text.subtitle>Author</Text.subtitle>
-        <AuthorEntry about="Name" val="Injoon Hwang" />
-        <AuthorEntry about="Department" val="School of Computing" />
-        <AuthorEntry about="Course Level" val="Undergraduate program" />
+        <AuthorEntry about="Name" val={data.author.en.name} />
+        <AuthorEntry about="Department" val={data.author.en.department} />
+        <AuthorEntry about="Course Level" val={data.author.en.courseLevel} />
       </CardBody.scroll>
       <Button>Connect Ideas</Button>
     </CardLayout>

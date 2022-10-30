@@ -3,12 +3,15 @@ import {
   IoChevronForward,
   IoClose,
   IoGlobeOutline,
-  IoLogoInstagram,
+  IoLogoGithub,
+  IoLogoLinkedin,
+  IoLogoReddit,
   IoLogoYoutube,
 } from "react-icons/io5";
+import { ImWikipedia } from "react-icons/im";
 import { IconType } from "react-icons/lib";
 import styled from "styled-components";
-import { contentType, relatedContentType } from "@/types";
+import { contentIconType, relatedContentType } from "@/types";
 
 const Entry = styled.div`
   display: flex;
@@ -72,10 +75,16 @@ const InfoContainer = styled.div`
   }
 `;
 
-const getLogo = (content: contentType): IconType => {
+const getLogo = (content: contentIconType): IconType => {
   switch (content) {
-    case "instagram":
-      return IoLogoInstagram;
+    case "github":
+      return IoLogoGithub;
+    case "linkedin":
+      return IoLogoLinkedin;
+    case "reddit":
+      return IoLogoReddit;
+    case "wikipedia":
+      return ImWikipedia;
     case "youtube":
       return IoLogoYoutube;
     default:
