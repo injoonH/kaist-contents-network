@@ -21,8 +21,17 @@ export const Text = {
     font-size: 1.6rem;
     color: ${(params) => params.theme.paragraph};
   `,
-  idea: styled.span`
+  ideaId: styled.span`
     font-size: 1.6rem;
     color: ${(params) => params.theme.subtext};
+  `,
+  profileTitle: styled.h2`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: 2rem;
+    font-weight: ${fonts.fw_bold};
+    color: ${(params) => params.theme.title};
   `,
 };

@@ -11,7 +11,7 @@ const Container = styled(motion.div)`
   overflow: hidden;
 
   border-radius: ${(props) => props.theme.border_radius_big};
-  max-width: 40rem;
+  width: 40rem;
   height: 90%;
 
   background-color: ${(props) => props.theme.card_background};

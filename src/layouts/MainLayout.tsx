@@ -38,11 +38,11 @@ export const MainLayout: React.FC = () => {
       <Nav>
         <Link to="">Home</Link>
         <hr />
-        <Link to="ideaInfo/1">Idea Info</Link>
+        <Link to="ideaInfo/2">Idea Info</Link>
         <hr />
         <Link to="linkInfo/1">Link Info</Link>
         <hr />
-        <Link to="linkedIdeas/1">Linked Ideas</Link>
+        <Link to="linkedIdeas/2">Linked Ideas</Link>
         <hr />
         <Link to="ideaLinker/1">Idea Linker</Link>
         <hr />

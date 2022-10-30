@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { IoGitCommitOutline } from "react-icons/io5";
 import {
   Button,
@@ -14,6 +14,7 @@ import { AuthorEntry, RelatedContentEntry } from "@/components/entry";
 import { itemResType } from "@/types";
 
 export const IdeaInfo: React.FC = () => {
+  const navigate = useNavigate();
   const data = useLoaderData() as itemResType;
 
   return (
@@ -22,12 +23,12 @@ export const IdeaInfo: React.FC = () => {
         <Flex.column_center gap="0.8rem">
           <Image src={data.imageSource} size="18rem" />
           <Flex.column_center style={{ width: "100%" }}>
-            <Text.idea>Idea {data.id}</Text.idea>
+            <Text.ideaId>Idea {data.id}</Text.ideaId>
             <Text.title>{data.title}</Text.title>
           </Flex.column_center>
-          <InfoButton>
+          <InfoButton onClick={() => navigate(`/linkedIdeas/${data.id}`)}>
             <IoGitCommitOutline />
-            Show Links ({data.linkedNodesCounts})
+            Show Links ({data.linkedNodesCount})
           </InfoButton>
         </Flex.column_center>
         <Divider />

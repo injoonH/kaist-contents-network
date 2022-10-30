@@ -5,7 +5,7 @@ export type itemResType = {
   title: string;
   description: string;
   imageSource: string;
-  linkedNodesCounts: number;
+  linkedNodesCount: number;
   contents: Array<{
     iconType: contentIconType;
     url: string;
@@ -16,4 +16,18 @@ export type itemResType = {
     ko: authorType;
     en: authorType;
   };
+};
+
+export type linkedIdeasResType = {
+  id: number;
+  title: string;
+  imageSource: string;
+  linkedNodes: Array<{
+    id: number;
+    title: string;
+    description: string;
+    imageSource: string;
+    linkedNodesCount: number;
+    likesCount: number;
+  }>;
 };

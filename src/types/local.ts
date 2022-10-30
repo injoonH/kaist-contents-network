@@ -18,3 +18,18 @@ export type authorType = {
   department: string;
   courseLevel: string;
 };
+
+export type ideaProfileType = {
+  title: string;
+  imgSrc: string;
+  id?: number;
+  nLinkedItems?: number;
+};
+
+export type linkedIdeaType = {
+  id: number;
+  title: string;
+  description: string;
+  imgSrc: string;
+  likes: number;
+};
