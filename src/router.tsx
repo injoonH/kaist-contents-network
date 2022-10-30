@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div>blank</div>,
+        element: <></>,
       },
       {
         path: "ideaInfo/:ideaId",
