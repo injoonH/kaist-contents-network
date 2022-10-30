@@ -22,6 +22,10 @@ export const IdeaLinker: React.FC = () => {
     [data.linkedNodes, searchQuery]
   );
 
+  React.useEffect(() => {
+    setSelectedId(null);
+  }, [data.linkedNodes, searchQuery]);
+
   console.log("render!");
 
   return (
