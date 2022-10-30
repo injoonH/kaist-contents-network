@@ -1,21 +1,24 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { IoAdd } from "react-icons/io5";
 import styled from "styled-components";
 import { Counter, Flex, Image } from "@/components/atom";
 import { colors, fonts } from "@/theme";
-import { linkedIdeaType } from "@/types";
+import { ideaEntryType } from "@/types";
 
-const Entry = styled.div`
+const Entry = styled.div<{ selected?: boolean }>`
   display: flex;
   gap: 0.8rem;
   align-items: center;
 
   padding: 0.8rem;
 
+  background-color: ${(props) =>
+    props.selected ? props.theme.entry_select : undefined};
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.theme.entry_hover};
+    background-color: ${(props) =>
+      props.selected ? undefined : props.theme.entry_hover};
   }
 `;
 
@@ -26,6 +29,24 @@ const Container = styled.div`
 
   /* minimum width */
   width: 1px;
+`;
+
+const CreateIdeaImage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+  width: 5.2rem;
+  height: 5.2rem;
+
+  background-color: ${(props) => props.theme.image_background};
+
+  color: ${colors.secondary};
+
+  & > svg {
+    font-size: 2rem;
+  }
 `;
 
 const Title = styled.h2`
@@ -53,26 +74,48 @@ const Description = styled.p`
   -webkit-line-clamp: 2;
 `;
 
-export const IdeaEntry: React.FC<linkedIdeaType> = ({
-  id,
+export const IdeaEntry: React.FC<
+  ideaEntryType & {
+    onClickHandler: React.MouseEventHandler;
+    selected?: boolean;
+  }
+> = ({
   title,
   description,
   imgSrc,
+  nLinkedItems,
   likes,
+  onClickHandler,
+  selected,
 }) => {
-  const navigate = useNavigate();
-
   return (
-    // TODO: Change navigate destination to linkInfo
-    <Entry onClick={() => navigate(`/ideaInfo/${id}`)}>
+    <Entry onClick={onClickHandler} selected={selected}>
       <Image src={imgSrc} size="5.2rem" />
       <Container>
         <Flex.plain gap="0.8rem">
           <Title>{title}</Title>
-          <Counter icon="heart" size="small">
-            {likes}
+          <Counter icon={likes === undefined ? "link" : "heart"} size="small">
+            {likes ?? nLinkedItems}
           </Counter>
         </Flex.plain>
+        <Description>{description}</Description>
+      </Container>
+    </Entry>
+  );
+};
+
+export const CreateIdeaButton: React.FC<{
+  title: string;
+  description: string;
+  onClickHandler: React.MouseEventHandler;
+}> = ({ title, description, onClickHandler }) => {
+  return (
+    <Entry onClick={onClickHandler}>
+      <CreateIdeaImage>
+        <IoAdd />
+      </CreateIdeaImage>
+      <Container>
+        <Title>{title}</Title>
         <Description>{description}</Description>
       </Container>
     </Entry>

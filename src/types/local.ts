@@ -26,10 +26,11 @@ export type ideaProfileType = {
   nLinkedItems?: number;
 };
 
-export type linkedIdeaType = {
+export type ideaEntryType = {
   id: number;
   title: string;
   description: string;
   imgSrc: string;
-  likes: number;
+  nLinkedItems: number;
+  likes?: number;
 };

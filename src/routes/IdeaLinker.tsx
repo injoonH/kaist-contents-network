@@ -1,14 +1,16 @@
 import React from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
+import { Button } from "@/components/atom";
 import { CardBody, CardLayout } from "@/components/card";
-import { IdeaEntry, IdeaProfile } from "@/components/entry";
+import { CreateIdeaButton, IdeaEntry, IdeaProfile } from "@/components/entry";
 import { Search } from "@/components/input";
 import { linkedIdeasResType } from "@/types";
 
-export const LinkedIdeas: React.FC = () => {
-  const navigate = useNavigate();
+export const IdeaLinker: React.FC = () => {
+  // TODO: Change linkedIdeasResType to highlyRelatedIdeasResType
   const data = useLoaderData() as linkedIdeasResType;
   const [searchQuery, setSearchQuery] = React.useState<string>("");
+  const [selectedId, setSelectedId] = React.useState<number | null>(null);
 
   const filteredLinkedItems = React.useMemo(
     () =>
@@ -19,6 +21,8 @@ export const LinkedIdeas: React.FC = () => {
       ),
     [data.linkedNodes, searchQuery]
   );
+
+  console.log("render!");
 
   return (
     <CardLayout>
@@ -35,9 +39,16 @@ export const LinkedIdeas: React.FC = () => {
           placeholder="Search Idea"
         />
       </CardBody.fix>
-      <CardBody.list style={{ marginBottom: "1.6rem" }}>
+      <CardBody.list>
+        <CreateIdeaButton
+          title="Create new idea"
+          description="Create new idea"
+          onClickHandler={() => {
+            // TODO: Navigate to ideaFactory
+            console.log("Create new idea");
+          }}
+        />
         {filteredLinkedItems.map((item) => (
-          // TODO: Change navigate destination to linkInfo
           <IdeaEntry
             key={item.id}
             id={item.id}
@@ -46,10 +57,22 @@ export const LinkedIdeas: React.FC = () => {
             imgSrc={item.imageSource}
             nLinkedItems={item.linkedNodesCount}
             likes={item.likesCount}
-            onClickHandler={() => navigate(`/ideaInfo/${item.id}`)}
+            onClickHandler={() =>
+              setSelectedId((curr) => (curr === item.id ? null : item.id))
+            }
+            selected={item.id === selectedId}
           />
         ))}
       </CardBody.list>
+      <Button
+        disabled={selectedId === null}
+        onClick={() => {
+          // TODO: Navigate to linkFactory
+          console.log("Button clicked");
+        }}
+      >
+        Connect Idea
+      </Button>
     </CardLayout>
   );
 };

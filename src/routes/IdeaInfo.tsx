@@ -51,7 +51,9 @@ export const IdeaInfo: React.FC = () => {
         <AuthorEntry about="Department" val={data.author.en.department} />
         <AuthorEntry about="Course Level" val={data.author.en.courseLevel} />
       </CardBody.scroll>
-      <Button>Connect Ideas</Button>
+      <Button onClick={() => navigate(`/ideaLinker/${data.id}`)}>
+        Connect Idea
+      </Button>
     </CardLayout>
   );
 };

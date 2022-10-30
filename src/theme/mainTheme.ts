@@ -15,6 +15,7 @@ export default {
   card_background: colors.white,
   counter: colors.gray_600,
   entry_hover: colors.gray_50,
+  entry_select: colors.gray_100,
   icon: colors.gray_400,
   icon_hover: colors.gray_500,
   image_background: colors.gray_200,

@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate, useRouteError } from "react-router-dom";
 import { ErrorPage, LoginPage } from "@/routes";
 import { MainLayout } from "@/layouts";
 import { IdeaInfo } from "@/routes/IdeaInfo";
+import { IdeaLinker } from "@/routes/IdeaLinker";
 import { LinkedIdeas } from "@/routes/LinkedIdeas";
 import { itemResType, linkedIdeasResType } from "@/types";
 import { AxiosError } from "axios";
@@ -52,15 +53,19 @@ const router = createBrowserRouter([
         element: <LinkedIdeas />,
         loader: async ({ params }): Promise<linkedIdeasResType> => {
           const res = await axios.get(`linkedNodes/${params.ideaId}`);
-          console.log("res");
-          console.log(res);
           return res.data as linkedIdeasResType;
         },
         errorElement: <ErrorElement />,
       },
       {
         path: "ideaLinker/:ideaId",
-        element: <div>Idea Linker</div>,
+        element: <IdeaLinker />,
+        // TODO: Get highly related ideas not linked ones
+        loader: async ({ params }): Promise<linkedIdeasResType> => {
+          const res = await axios.get(`linkedNodes/${params.ideaId}`);
+          return res.data as linkedIdeasResType;
+        },
+        errorElement: <ErrorElement />,
       },
       {
         path: "ideaFactory",
