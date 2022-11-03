@@ -37,7 +37,6 @@ export const LinkedIdeas: React.FC = () => {
       </CardBody.fix>
       <CardBody.list style={{ marginBottom: "1.6rem" }}>
         {filteredLinkedItems.map((item) => (
-          // TODO: Change navigate destination to linkInfo
           <IdeaEntry
             key={item.id}
             id={item.id}
@@ -46,7 +45,7 @@ export const LinkedIdeas: React.FC = () => {
             imgSrc={item.imageSource}
             nLinkedItems={item.linkedNodesCount}
             likes={item.likesCount}
-            onClickHandler={() => navigate(`/ideaInfo/${item.id}`)}
+            onClickHandler={() => navigate(`/linkInfo/${item.edgeId}`)}
           />
         ))}
       </CardBody.list>

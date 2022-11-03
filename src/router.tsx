@@ -6,7 +6,13 @@ import { IdeaInfo } from "@/routes/IdeaInfo";
 import { IdeaFactory } from "@/routes/IdeaFactory";
 import { IdeaLinker } from "@/routes/IdeaLinker";
 import { LinkedIdeas } from "@/routes/LinkedIdeas";
-import { itemResType, linkedIdeasResType, relatedIdeasResType } from "@/types";
+import { LinkInfo } from "@/routes/LinkInfo";
+import {
+  itemResType,
+  linkedIdeasResType,
+  linkResType,
+  relatedIdeasResType,
+} from "@/types";
 import { AxiosError } from "axios";
 import axios from "@/utils/axios";
 
@@ -47,7 +53,12 @@ const router = createBrowserRouter([
       },
       {
         path: "linkInfo/:linkId",
-        element: <div>Link Info</div>,
+        element: <LinkInfo />,
+        loader: async ({ params }): Promise<linkResType> => {
+          const res = await axios.get(`links/${params.linkId}`);
+          return res.data as linkResType;
+        },
+        errorElement: <ErrorElement />,
       },
       {
         path: "linkedIdeas/:ideaId",

@@ -11,6 +11,13 @@ type apiAuthorType = {
   en: authorType;
 };
 
+export type ideaProfileResType = {
+  id: number;
+  title: string;
+  imageSource: string;
+  linkedNodesCount: number;
+};
+
 export type itemResType = {
   id: number;
   title: string;
@@ -22,12 +29,24 @@ export type itemResType = {
   author: apiAuthorType;
 };
 
+export type linkResType = {
+  id: number;
+  src: ideaProfileResType;
+  dest: ideaProfileResType;
+  description: string;
+  contents: Array<contentType>;
+  author: apiAuthorType;
+  likesCount: number;
+  isLiked: boolean;
+};
+
 export type linkedIdeasResType = {
   id: number;
   title: string;
   imageSource: string;
   linkedNodes: Array<{
     id: number;
+    edgeId: number;
     title: string;
     description: string;
     imageSource: string;

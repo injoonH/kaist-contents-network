@@ -1,15 +1,14 @@
 import styled from "styled-components";
 import { colors, fonts } from "@/theme";
-import React from "react";
+import { useParams } from "react-router-dom";
 
-export const Button = styled.button<{ like?: boolean }>`
+export const Button = styled.button`
   margin: 1.6rem;
   border: 1px solid transparent;
   border-radius: ${(props) => props.theme.border_radius_big};
   padding: 0.5rem;
 
-  background-color: ${(props) =>
-    props.like ? props.theme.like : props.theme.button_active_background};
+  background-color: ${(props) => props.theme.button_active_background};
 
   font-size: 2rem;
   font-weight: ${fonts.fw_medium};
@@ -42,4 +41,26 @@ export const InfoButton = styled.button`
   & > svg {
     font-size: 1.4rem;
   }
+`;
+
+export const LikeButton = styled.button<{ liked: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  margin: 1.6rem;
+  border: 1px solid
+    ${(props) => (props.liked ? "transparent" : props.theme.button_disabled)};
+  border-radius: ${(props) => props.theme.border_radius_big};
+  padding: 0.5rem;
+
+  background-color: ${(props) => (props.liked ? props.theme.like : "inherit")};
+
+  font-size: 2rem;
+  font-weight: ${fonts.fw_medium};
+  color: ${(props) =>
+    props.liked
+      ? props.theme.button_active_color
+      : props.theme.button_disabled};
 `;
