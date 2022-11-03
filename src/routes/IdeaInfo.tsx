@@ -34,8 +34,12 @@ export const IdeaInfo: React.FC = () => {
         <Divider />
         <Text.subtitle>Description</Text.subtitle>
         <Text.paragraph>{data.description}</Text.paragraph>
-        <Divider />
-        <Text.subtitle>Related Contents</Text.subtitle>
+        {data.contents.length === 0 ? undefined : (
+          <>
+            <Divider />
+            <Text.subtitle>Related Contents</Text.subtitle>
+          </>
+        )}
         {data.contents.map((content, idx) => (
           <RelatedContentEntry
             key={idx}

@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { CardHeader } from "./CardHeader";
 
 const Container = styled(motion.div)`
+  position: relative;
+
   display: flex;
   flex-direction: column;
 

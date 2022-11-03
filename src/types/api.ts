@@ -1,21 +1,25 @@
 import { authorType, contentIconType } from "./local";
 
+type contentType = {
+  iconType: contentIconType;
+  url: string;
+  title: string;
+};
+
+type apiAuthorType = {
+  ko: authorType;
+  en: authorType;
+};
+
 export type itemResType = {
   id: number;
   title: string;
   description: string;
   imageSource: string;
   linkedNodesCount: number;
-  contents: Array<{
-    iconType: contentIconType;
-    url: string;
-    title: string;
-  }>;
+  contents: Array<contentType>;
   creationDate: string;
-  author: {
-    ko: authorType;
-    en: authorType;
-  };
+  author: apiAuthorType;
 };
 
 export type linkedIdeasResType = {
@@ -30,4 +34,9 @@ export type linkedIdeasResType = {
     linkedNodesCount: number;
     likesCount: number;
   }>;
+};
+
+export type relatedIdeasResType = {
+  idea: itemResType;
+  relatedIdeas: Array<itemResType>;
 };

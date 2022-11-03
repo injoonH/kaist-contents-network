@@ -4,38 +4,35 @@ import { Button } from "@/components/atom";
 import { CardBody, CardLayout } from "@/components/card";
 import { CreateIdeaButton, IdeaEntry, IdeaProfile } from "@/components/entry";
 import { Search } from "@/components/input";
-import { linkedIdeasResType } from "@/types";
+import { relatedIdeasResType } from "@/types";
 
 export const IdeaLinker: React.FC = () => {
-  // TODO: Change linkedIdeasResType to highlyRelatedIdeasResType
-  const data = useLoaderData() as linkedIdeasResType;
+  const { idea, relatedIdeas } = useLoaderData() as relatedIdeasResType;
   const [searchQuery, setSearchQuery] = React.useState<string>("");
   const [selectedId, setSelectedId] = React.useState<number | null>(null);
 
   const filteredLinkedItems = React.useMemo(
     () =>
-      data.linkedNodes.filter(
+      relatedIdeas.filter(
         (el) =>
           el.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           el.description.toLowerCase().includes(searchQuery.toLowerCase())
       ),
-    [data.linkedNodes, searchQuery]
+    [relatedIdeas, searchQuery]
   );
 
   React.useEffect(() => {
     setSelectedId(null);
-  }, [data.linkedNodes, searchQuery]);
-
-  console.log("render!");
+  }, [relatedIdeas, searchQuery]);
 
   return (
     <CardLayout>
       <CardBody.fix>
         <IdeaProfile
-          title={data.title}
-          imgSrc={data.imageSource}
-          id={data.id}
-          nLinkedItems={data.linkedNodes.length}
+          title={idea.title}
+          imgSrc={idea.imageSource}
+          id={idea.id}
+          nLinkedItems={idea.linkedNodesCount}
         />
         <Search
           value={searchQuery}
@@ -60,7 +57,6 @@ export const IdeaLinker: React.FC = () => {
             description={item.description}
             imgSrc={item.imageSource}
             nLinkedItems={item.linkedNodesCount}
-            likes={item.likesCount}
             onClickHandler={() =>
               setSelectedId((curr) => (curr === item.id ? null : item.id))
             }

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { colors, fonts } from "@/theme";
+import React from "react";
 
 export const Button = styled.button<{ like?: boolean }>`
   margin: 1.6rem;

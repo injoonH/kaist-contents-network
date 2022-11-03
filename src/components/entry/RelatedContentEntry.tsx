@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  IoAdd,
   IoChevronForward,
   IoClose,
   IoGlobeOutline,
@@ -11,6 +12,8 @@ import {
 import { ImWikipedia } from "react-icons/im";
 import { IconType } from "react-icons/lib";
 import styled from "styled-components";
+import { Input } from "@/components/input";
+import { colors } from "@/theme";
 import { contentIconType, relatedContentType } from "@/types";
 
 const Entry = styled.div`
@@ -75,6 +78,73 @@ const InfoContainer = styled.div`
   }
 `;
 
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  margin-bottom: 0.8rem;
+  border-radius: ${(props) => props.theme.border_radius_small};
+  width: 100%;
+  padding: 0.8rem;
+
+  font-size: 1.6rem;
+  color: ${(props) => props.theme.input_placeholder};
+
+  & > span {
+    flex: 1;
+
+    text-align: start;
+  }
+
+  & > svg {
+    font-size: 1.8rem;
+  }
+`;
+
+const Modal = styled.form`
+  overflow: hidden;
+
+  border-radius: ${(props) => props.theme.border_radius_big};
+
+  background-color: ${(props) => props.theme.card_background};
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    padding: 1.2rem;
+  }
+
+  & > footer {
+    display: flex;
+
+    border-top: 1px solid ${colors.gray_300};
+
+    & > button {
+      flex: 1;
+
+      padding: 1.2rem 1.6rem;
+
+      background: none;
+
+      font-size: 1.6rem;
+
+      &:not(:last-child) {
+        border-right: 1px solid ${colors.gray_300};
+      }
+    }
+
+    & > hr {
+      border: none;
+      width: 1px;
+
+      background-color: ${colors.gray_300};
+    }
+  }
+`;
+
 const getLogo = (content: contentIconType): IconType => {
   switch (content) {
     case "github":
@@ -92,12 +162,9 @@ const getLogo = (content: contentIconType): IconType => {
   }
 };
 
-export const RelatedContentEntry: React.FC<relatedContentType> = ({
-  entryType,
-  content,
-  url,
-  title,
-}) => {
+export const RelatedContentEntry: React.FC<
+  relatedContentType & { onClickHandler?: () => void }
+> = ({ entryType, content, url, title, onClickHandler }) => {
   const Logo = getLogo(content);
 
   return (
@@ -105,6 +172,7 @@ export const RelatedContentEntry: React.FC<relatedContentType> = ({
       {...(entryType === "anchor"
         ? { as: "a", href: url, target: "_blank" }
         : {})}
+      onClick={onClickHandler}
     >
       <Icon>
         <Logo />
@@ -115,5 +183,47 @@ export const RelatedContentEntry: React.FC<relatedContentType> = ({
       </InfoContainer>
       {entryType === "anchor" ? <IoChevronForward /> : <IoClose />}
     </Entry>
+  );
+};
+
+export const CreateRelatedContentButton: React.FC<{
+  clickHandler: () => void;
+  description: string;
+}> = ({ clickHandler, description }) => {
+  return (
+    <Button onClick={clickHandler}>
+      <IoGlobeOutline />
+      <span>{description}</span>
+      <IoAdd />
+    </Button>
+  );
+};
+
+export const CreateRelatedContentModal: React.FC<{
+  titleRef: React.RefObject<HTMLInputElement>;
+  urlRef: React.RefObject<HTMLInputElement>;
+  closeHandler: () => void;
+  addHandler: () => void;
+}> = ({ titleRef, urlRef, closeHandler, addHandler }) => {
+  return (
+    <Modal
+      onSubmit={(event) => {
+        event.preventDefault();
+        closeHandler();
+      }}
+    >
+      <div>
+        <Input ref={titleRef} placeholder="Title" />
+        <Input ref={urlRef} placeholder="URL*" required />
+      </div>
+      <footer>
+        <button onClick={closeHandler} type="button">
+          Cancel
+        </button>
+        <button onClick={addHandler} style={{ color: colors.secondary }}>
+          Add
+        </button>
+      </footer>
+    </Modal>
   );
 };

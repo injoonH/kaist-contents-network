@@ -44,9 +44,9 @@ export const MainLayout: React.FC = () => {
         <hr />
         <Link to="linkedIdeas/2">Linked Ideas</Link>
         <hr />
-        <Link to="ideaLinker/1">Idea Linker</Link>
+        <Link to="ideaLinker/2">Idea Linker</Link>
         <hr />
-        <Link to="ideaFactory">Node Factory</Link>
+        <Link to="ideaFactory">Idea Factory</Link>
         <hr />
         <Link to="linkFactory">Link Factory</Link>
       </Nav>

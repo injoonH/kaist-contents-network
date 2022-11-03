@@ -3,9 +3,10 @@ import { createBrowserRouter, Navigate, useRouteError } from "react-router-dom";
 import { ErrorPage, LoginPage } from "@/routes";
 import { MainLayout } from "@/layouts";
 import { IdeaInfo } from "@/routes/IdeaInfo";
+import { IdeaFactory } from "@/routes/IdeaFactory";
 import { IdeaLinker } from "@/routes/IdeaLinker";
 import { LinkedIdeas } from "@/routes/LinkedIdeas";
-import { itemResType, linkedIdeasResType } from "@/types";
+import { itemResType, linkedIdeasResType, relatedIdeasResType } from "@/types";
 import { AxiosError } from "axios";
 import axios from "@/utils/axios";
 
@@ -60,16 +61,20 @@ const router = createBrowserRouter([
       {
         path: "ideaLinker/:ideaId",
         element: <IdeaLinker />,
-        // TODO: Get highly related ideas not linked ones
-        loader: async ({ params }): Promise<linkedIdeasResType> => {
-          const res = await axios.get(`linkedNodes/${params.ideaId}`);
-          return res.data as linkedIdeasResType;
+        loader: async ({ params }): Promise<relatedIdeasResType> => {
+          const ideaRes = await axios.get(`nodes/${params.ideaId}`);
+          const idea = ideaRes.data as itemResType;
+
+          const relatedRes = await axios.get(`nodes/${params.ideaId}/related`);
+          const relatedIdeas = relatedRes.data as Array<itemResType>;
+
+          return { idea, relatedIdeas };
         },
         errorElement: <ErrorElement />,
       },
       {
         path: "ideaFactory",
-        element: <div>Node Factory</div>,
+        element: <IdeaFactory />,
       },
       {
         path: "linkFactory",
