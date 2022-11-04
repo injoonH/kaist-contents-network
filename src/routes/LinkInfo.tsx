@@ -46,8 +46,9 @@ export const LinkInfo: React.FC = () => {
     const res = await axios.post(
       `/links/${data.id}/${isLiked ? "dislike" : "like"}`
     );
-    // TODO: Update likesCount from res
-    // TODO: Update isLiked if status is 200
+    if (res.data.result === false) return;
+    setLikesCount(res.data.likeCounts);
+    setIsLiked((curr) => !curr);
   };
   return (
     <>
