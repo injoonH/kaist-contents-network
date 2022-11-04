@@ -59,3 +59,8 @@ export type relatedIdeasResType = {
   idea: itemResType;
   relatedIdeas: Array<itemResType>;
 };
+
+export type linkFactoryResType = {
+  srcIdea: itemResType;
+  dstIdea: itemResType;
+};

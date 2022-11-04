@@ -66,7 +66,7 @@ export const MainLayout: React.FC = () => {
         <hr />
         <Link to="ideaFactory">Idea Factory</Link>
         <hr />
-        <Link to="linkFactory">Link Factory</Link>
+        <Link to="linkFactory/219/220">Link Factory</Link>
       </Nav>
       <div
         style={{

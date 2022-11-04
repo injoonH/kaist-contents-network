@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { Button } from "@/components/atom";
 import { CardBody } from "@/components/card";
 import { CreateIdeaButton, IdeaEntry, IdeaProfile } from "@/components/entry";
@@ -7,6 +7,7 @@ import { Search } from "@/components/input";
 import { relatedIdeasResType } from "@/types";
 
 export const IdeaLinker: React.FC = () => {
+  const navigate = useNavigate();
   const data = useLoaderData() as relatedIdeasResType;
   const [searchQuery, setSearchQuery] = React.useState<string>("");
   const [selectedId, setSelectedId] = React.useState<number | null>(null);
@@ -68,10 +69,7 @@ export const IdeaLinker: React.FC = () => {
       </CardBody.list>
       <Button
         disabled={selectedId === null}
-        onClick={() => {
-          // TODO: Navigate to linkFactory
-          console.log("Button clicked");
-        }}
+        onClick={() => navigate(`/linkFactory/${idea.id}/${selectedId}`)}
       >
         Connect Idea
       </Button>

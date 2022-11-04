@@ -11,6 +11,7 @@ import { LinkInfo } from "@/routes/LinkInfo";
 import {
   itemResType,
   linkedIdeasResType,
+  linkFactoryResType,
   linkResType,
   relatedIdeasResType,
 } from "@/types";
@@ -85,8 +86,21 @@ const router = createBrowserRouter([
         element: <IdeaFactory />,
       },
       {
-        path: "linkFactory",
+        path: "linkFactory/:srcId/:dstId",
         element: <LinkFactory />,
+        loader: async ({ params }): Promise<linkFactoryResType> => {
+          if (params.srcId === params.dstId)
+            throw new Response("Two ideas must be different.", { status: 400 });
+
+          const srcRes = await axios.get(`nodes/${params.srcId}`);
+          const srcIdea = srcRes.data as itemResType;
+
+          const dstRes = await axios.get(`nodes/${params.dstId}`);
+          const dstIdea = dstRes.data as itemResType;
+
+          return { srcIdea, dstIdea };
+        },
+        errorElement: <ErrorElement />,
       },
     ],
   },

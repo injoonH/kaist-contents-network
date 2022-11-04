@@ -191,7 +191,7 @@ export const CreateRelatedContentButton: React.FC<{
   description: string;
 }> = ({ clickHandler, description }) => {
   return (
-    <Button onClick={clickHandler}>
+    <Button type="button" onClick={clickHandler}>
       <IoGlobeOutline />
       <span>{description}</span>
       <IoAdd />
@@ -214,7 +214,7 @@ export const CreateRelatedContentModal: React.FC<{
     >
       <div>
         <Input ref={titleRef} placeholder="Title" />
-        <Input ref={urlRef} placeholder="URL*" required />
+        <Input ref={urlRef} placeholder="URL*" type="url" required />
       </div>
       <footer>
         <button onClick={closeHandler} type="button">

@@ -40,6 +40,7 @@ export const Search: React.FC<{
     <Container>
       <IoSearch />
       <Input
+        type="search"
         value={value}
         onChange={(event) => setValue(event.target.value)}
         placeholder={placeholder}
