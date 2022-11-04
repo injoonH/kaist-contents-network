@@ -6,6 +6,7 @@ import { IdeaInfo } from "@/routes/IdeaInfo";
 import { IdeaFactory } from "@/routes/IdeaFactory";
 import { IdeaLinker } from "@/routes/IdeaLinker";
 import { LinkedIdeas } from "@/routes/LinkedIdeas";
+import { LinkFactory } from "@/routes/LinkFactory";
 import { LinkInfo } from "@/routes/LinkInfo";
 import {
   itemResType,
@@ -85,7 +86,7 @@ const router = createBrowserRouter([
       },
       {
         path: "linkFactory",
-        element: <div>Link Factory</div>,
+        element: <LinkFactory />,
       },
     ],
   },

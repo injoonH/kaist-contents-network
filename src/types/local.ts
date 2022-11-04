@@ -1,3 +1,9 @@
+export type contentType = {
+  url: string;
+  title: string;
+  icon: contentIconType;
+};
+
 export type contentIconType =
   | "github"
   | "linkedin"
