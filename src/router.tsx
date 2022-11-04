@@ -1,6 +1,5 @@
-import React from "react";
-import { createBrowserRouter, Navigate, useRouteError } from "react-router-dom";
-import { ErrorPage, LoginPage } from "@/routes";
+import { createBrowserRouter } from "react-router-dom";
+import { ErrorElement, ErrorPage, LoginPage } from "@/routes";
 import { MainLayout } from "@/layouts";
 import { IdeaInfo } from "@/routes/IdeaInfo";
 import { IdeaFactory } from "@/routes/IdeaFactory";
@@ -15,20 +14,7 @@ import {
   linkResType,
   relatedIdeasResType,
 } from "@/types";
-import { AxiosError } from "axios";
 import axios from "@/utils/axios";
-
-const ErrorElement: React.FC = () => {
-  const error = useRouteError() as AxiosError;
-  console.log("printing ...");
-  console.log(error);
-  console.log("done");
-  if (error.response?.status === 401) {
-    console.log("Not authenticated");
-    return <Navigate to="/login" replace={true} />;
-  }
-  return <div>Err</div>;
-};
 
 const router = createBrowserRouter([
   {

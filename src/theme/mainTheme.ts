@@ -9,6 +9,7 @@ const text = {
 
 export default {
   background: colors.gray_900,
+  background_text: colors.gray_50,
   button_active_background: colors.primary,
   button_active_color: colors.white,
   button_disabled: colors.gray_400,
