@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Counter, Image, Text } from "@/components/atom";
 import { ideaProfileType } from "@/types";
+import defaultImg from "@/assets/default-img.png";
 
 const Entry = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ export const IdeaProfile: React.FC<ideaProfileType> = ({
 }) => {
   return (
     <Entry>
-      <Image src={imgSrc} size="6rem" />
+      <Image src={imgSrc.length ? imgSrc : defaultImg} size="6rem" />
       <InfoContainer>
         <Text.profileTitle>{title}</Text.profileTitle>
         {id && <Text.ideaId>Idea {id}</Text.ideaId>}

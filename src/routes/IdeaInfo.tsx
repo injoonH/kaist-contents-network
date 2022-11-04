@@ -12,6 +12,7 @@ import {
 import { CardBody, CardLayout } from "@/components/card";
 import { AuthorEntry, RelatedContentEntry } from "@/components/entry";
 import { itemResType } from "@/types";
+import defaultImg from "@/assets/default-img.png";
 
 export const IdeaInfo: React.FC = () => {
   const navigate = useNavigate();
@@ -21,7 +22,10 @@ export const IdeaInfo: React.FC = () => {
     <CardLayout>
       <CardBody.scroll>
         <Flex.column_center gap="0.8rem">
-          <Image src={data.imageSource} size="18rem" />
+          <Image
+            src={data.imageSource.length ? data.imageSource : defaultImg}
+            size="18rem"
+          />
           <Flex.column_center style={{ width: "100%" }}>
             <Text.ideaId>Idea {data.id}</Text.ideaId>
             <Text.title>{data.title}</Text.title>

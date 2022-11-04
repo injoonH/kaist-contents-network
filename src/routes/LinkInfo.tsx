@@ -13,13 +13,17 @@ import { CardBody, CardLayout } from "@/components/card";
 import { AuthorEntry, RelatedContentEntry } from "@/components/entry";
 import { ideaProfileResType, linkResType } from "@/types";
 import axios from "@/utils/axios";
+import defaultImg from "@/assets/default-img.png";
 
 const Profile: React.FC<{ idea: ideaProfileResType }> = ({ idea }) => {
   const navigate = useNavigate();
 
   return (
     <Flex.column_center gap="0.8rem" style={{ flex: 1 }}>
-      <Image src={idea.imageSource} size="11rem" />
+      <Image
+        src={idea.imageSource.length ? idea.imageSource : defaultImg}
+        size="11rem"
+      />
       <Flex.column_center>
         <Text.ideaId>Idea {idea.id}</Text.ideaId>
         <Text.title style={{ fontSize: "2rem" }}>{idea.title}</Text.title>

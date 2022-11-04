@@ -40,10 +40,16 @@ export const IdeaFactory: React.FC = () => {
   const closeModal = () => setModalActive(false);
 
   const submitIdea = async () => {
+    const title = titleRef.current?.value ?? "";
+    const description = descriptionRef.current?.value ?? "";
+    if (title.length === 0 || description.length === 0) {
+      console.log("Please fill blanks");
+      return;
+    }
     // TODO: Get imageSource
     const res = await axios.post("/nodes", {
-      title: titleRef.current?.value ?? "",
-      description: descriptionRef.current?.value ?? "",
+      title: title,
+      description: description,
       imageSource: "",
       contents: relatedContents.map((content) => ({
         url: content.url,
@@ -53,8 +59,6 @@ export const IdeaFactory: React.FC = () => {
     // status code should be 201
     console.log(res);
   };
-
-  console.log("rendered!");
 
   return (
     <CardLayout>

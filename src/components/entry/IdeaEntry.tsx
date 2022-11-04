@@ -4,12 +4,14 @@ import styled from "styled-components";
 import { Counter, Flex, Image } from "@/components/atom";
 import { colors, fonts } from "@/theme";
 import { ideaEntryType } from "@/types";
+import defaultImg from "@/assets/default-img.png";
 
 const Entry = styled.div<{ selected?: boolean }>`
   display: flex;
   gap: 0.8rem;
   align-items: center;
 
+  border-radius: ${(props) => props.theme.border_radius_small};
   padding: 0.8rem;
 
   background-color: ${(props) =>
@@ -90,7 +92,7 @@ export const IdeaEntry: React.FC<
 }) => {
   return (
     <Entry onClick={onClickHandler} selected={selected}>
-      <Image src={imgSrc} size="5.2rem" />
+      <Image src={imgSrc.length ? imgSrc : defaultImg} size="5.2rem" />
       <Container>
         <Flex.plain gap="0.8rem">
           <Title>{title}</Title>
