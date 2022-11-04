@@ -1,6 +1,6 @@
 import React from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { CardBody, CardLayout } from "@/components/card";
+import { CardBody } from "@/components/card";
 import { IdeaEntry, IdeaProfile } from "@/components/entry";
 import { Search } from "@/components/input";
 import { linkedIdeasResType } from "@/types";
@@ -12,16 +12,17 @@ export const LinkedIdeas: React.FC = () => {
 
   const filteredLinkedItems = React.useMemo(
     () =>
-      data.linkedNodes.filter(
+      data?.linkedNodes.filter(
         (el) =>
           el.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           el.description.toLowerCase().includes(searchQuery.toLowerCase())
       ),
-    [data.linkedNodes, searchQuery]
+    [data?.linkedNodes, searchQuery]
   );
 
+  if (data === undefined) return <></>;
   return (
-    <CardLayout>
+    <>
       <CardBody.fix>
         <IdeaProfile
           title={data.title}
@@ -49,6 +50,6 @@ export const LinkedIdeas: React.FC = () => {
           />
         ))}
       </CardBody.list>
-    </CardLayout>
+    </>
   );
 };

@@ -9,7 +9,7 @@ import {
   LikeButton,
   Text,
 } from "@/components/atom";
-import { CardBody, CardLayout } from "@/components/card";
+import { CardBody } from "@/components/card";
 import { AuthorEntry, RelatedContentEntry } from "@/components/entry";
 import { ideaProfileResType, linkResType } from "@/types";
 import axios from "@/utils/axios";
@@ -37,8 +37,10 @@ const Profile: React.FC<{ idea: ideaProfileResType }> = ({ idea }) => {
 
 export const LinkInfo: React.FC = () => {
   const data = useLoaderData() as linkResType;
-  const [isLiked, setIsLiked] = React.useState<boolean>(data.isLiked);
-  const [likesCount, setLikesCount] = React.useState<number>(data.likesCount);
+  const [isLiked, setIsLiked] = React.useState<boolean>(data?.isLiked);
+  const [likesCount, setLikesCount] = React.useState<number>(data?.likesCount);
+
+  if (data === undefined) return <></>;
 
   const likeHandler = async () => {
     const res = await axios.post(
@@ -47,9 +49,8 @@ export const LinkInfo: React.FC = () => {
     // TODO: Update likesCount from res
     // TODO: Update isLiked if status is 200
   };
-
   return (
-    <CardLayout>
+    <>
       <CardBody.scroll>
         <Flex.plain>
           <Profile idea={data.src} />
@@ -83,6 +84,6 @@ export const LinkInfo: React.FC = () => {
         <IoHeart />
         {likesCount}
       </LikeButton>
-    </CardLayout>
+    </>
   );
 };

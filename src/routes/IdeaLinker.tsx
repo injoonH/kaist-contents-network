@@ -1,32 +1,34 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import { Button } from "@/components/atom";
-import { CardBody, CardLayout } from "@/components/card";
+import { CardBody } from "@/components/card";
 import { CreateIdeaButton, IdeaEntry, IdeaProfile } from "@/components/entry";
 import { Search } from "@/components/input";
 import { relatedIdeasResType } from "@/types";
 
 export const IdeaLinker: React.FC = () => {
-  const { idea, relatedIdeas } = useLoaderData() as relatedIdeasResType;
+  const data = useLoaderData() as relatedIdeasResType;
   const [searchQuery, setSearchQuery] = React.useState<string>("");
   const [selectedId, setSelectedId] = React.useState<number | null>(null);
 
   const filteredLinkedItems = React.useMemo(
     () =>
-      relatedIdeas.filter(
+      data?.relatedIdeas.filter(
         (el) =>
           el.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           el.description.toLowerCase().includes(searchQuery.toLowerCase())
       ),
-    [relatedIdeas, searchQuery]
+    [data?.relatedIdeas, searchQuery]
   );
 
   React.useEffect(() => {
     setSelectedId(null);
-  }, [relatedIdeas, searchQuery]);
+  }, [data?.relatedIdeas, searchQuery]);
 
+  if (data === undefined) return <></>;
+  const { idea } = data;
   return (
-    <CardLayout>
+    <>
       <CardBody.fix>
         <IdeaProfile
           title={idea.title}
@@ -73,6 +75,6 @@ export const IdeaLinker: React.FC = () => {
       >
         Connect Idea
       </Button>
-    </CardLayout>
+    </>
   );
 };

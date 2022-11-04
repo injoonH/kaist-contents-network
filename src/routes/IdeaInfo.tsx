@@ -9,7 +9,7 @@ import {
   InfoButton,
   Text,
 } from "@/components/atom";
-import { CardBody, CardLayout } from "@/components/card";
+import { CardBody } from "@/components/card";
 import { AuthorEntry, RelatedContentEntry } from "@/components/entry";
 import { itemResType } from "@/types";
 import defaultImg from "@/assets/default-img.png";
@@ -18,8 +18,9 @@ export const IdeaInfo: React.FC = () => {
   const navigate = useNavigate();
   const data = useLoaderData() as itemResType;
 
+  if (data === undefined) return <></>;
   return (
-    <CardLayout>
+    <>
       <CardBody.scroll>
         <Flex.column_center gap="0.8rem">
           <Image
@@ -62,6 +63,6 @@ export const IdeaInfo: React.FC = () => {
       <Button onClick={() => navigate(`/ideaLinker/${data.id}`)}>
         Connect Idea
       </Button>
-    </CardLayout>
+    </>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { CardBody, CardLayout } from "@/components/card";
+import { CardBody } from "@/components/card";
 import { Button, Divider, Modal, Text } from "@/components/atom";
 import {
   CreateRelatedContentButton,
@@ -61,7 +61,7 @@ export const IdeaFactory: React.FC = () => {
   };
 
   return (
-    <CardLayout>
+    <>
       <CardBody.scroll>
         {/* TODO: Add image input */}
         <TitleInput ref={titleRef} placeholder="Idea*" />
@@ -104,6 +104,6 @@ export const IdeaFactory: React.FC = () => {
           }}
         />
       </Modal>
-    </CardLayout>
+    </>
   );
 };

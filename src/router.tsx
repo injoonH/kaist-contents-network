@@ -39,10 +39,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        index: true,
-        element: <></>,
-      },
-      {
         path: "ideaInfo/:ideaId",
         element: <IdeaInfo />,
         loader: async ({ params }): Promise<itemResType> => {

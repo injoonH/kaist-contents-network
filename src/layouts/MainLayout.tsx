@@ -1,7 +1,8 @@
 import React from "react";
-import { Link, useOutlet } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { Link, useNavigate, useOutlet } from "react-router-dom";
+import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import styled from "styled-components";
+import { CardHeader } from "@/components/card/CardHeader";
 import { colors } from "@/theme";
 
 const Nav = styled.nav`
@@ -23,8 +24,25 @@ const Nav = styled.nav`
   }
 `;
 
+const Container = styled(motion.div)`
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border-radius: ${(props) => props.theme.border_radius_big};
+  width: 40rem;
+  height: 90%;
+
+  background-color: ${(props) => props.theme.card_background};
+`;
+
 export const MainLayout: React.FC = () => {
   const outlet = useOutlet();
+  const navigate = useNavigate();
+  const dragControls = useDragControls();
 
   return (
     <div
@@ -60,7 +78,28 @@ export const MainLayout: React.FC = () => {
           height: "90%",
         }}
       >
-        <AnimatePresence>{outlet}</AnimatePresence>
+        <AnimatePresence mode="wait">
+          {outlet === null ? undefined : (
+            <Container
+              initial={{ x: "calc(50vw + 100%)" }}
+              animate={{ x: 0 }}
+              exit={{ x: "calc(50vw + 100%)" }}
+              drag="x"
+              dragListener={false}
+              dragControls={dragControls}
+              dragConstraints={{ left: 0 }}
+              dragSnapToOrigin
+              dragElastic={0.2}
+              onDragEnd={(_, info) => {
+                const offset = info.offset.x;
+                if (offset > 300) navigate("/");
+              }}
+            >
+              <CardHeader startDrag={(event) => dragControls.start(event)} />
+              {outlet}
+            </Container>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
