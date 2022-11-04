@@ -209,6 +209,7 @@ export const CreateRelatedContentModal: React.FC<{
     <Modal
       onSubmit={(event) => {
         event.preventDefault();
+        addHandler();
         closeHandler();
       }}
     >
@@ -217,12 +218,10 @@ export const CreateRelatedContentModal: React.FC<{
         <Input ref={urlRef} placeholder="URL*" type="url" required />
       </div>
       <footer>
-        <button onClick={closeHandler} type="button">
+        <button type="button" onClick={closeHandler}>
           Cancel
         </button>
-        <button onClick={addHandler} style={{ color: colors.secondary }}>
-          Add
-        </button>
+        <button style={{ color: colors.secondary }}>Add</button>
       </footer>
     </Modal>
   );
