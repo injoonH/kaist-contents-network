@@ -64,3 +64,13 @@ export type linkFactoryResType = {
   srcIdea: itemResType;
   dstIdea: itemResType;
 };
+
+export type ideaReqType = {
+  srcId: number;
+  title: string;
+  nodeDescription: string;
+  edgeDescription: string;
+  imageSource: string;
+  nodeContents: Array<{ url: string; title: string }>;
+  edgeContents: Array<{ url: string; title: string }>;
+};

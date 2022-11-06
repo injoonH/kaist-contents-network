@@ -24,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    loader: async () => {
+      const res = await axios.get(`nodes`);
+      return res.data;
+    },
     errorElement: <ErrorPage />,
     children: [
       {
@@ -68,8 +72,13 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: "ideaFactory",
+        path: "ideaFactory/:srcId",
         element: <IdeaFactory />,
+        loader: async ({ params }): Promise<itemResType> => {
+          const res = await axios.get(`nodes/${params.srcId}`);
+          return res.data as itemResType;
+        },
+        errorElement: <ErrorElement />,
       },
       {
         path: "linkFactory/:srcId/:dstId",

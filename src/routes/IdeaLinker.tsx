@@ -47,10 +47,7 @@ export const IdeaLinker: React.FC = () => {
         <CreateIdeaButton
           title="Create new idea"
           description="Create new idea"
-          onClickHandler={() => {
-            // TODO: Navigate to ideaFactory
-            console.log("Create new idea");
-          }}
+          onClickHandler={() => navigate(`/ideaFactory/${idea.id}`)}
         />
         {filteredLinkedItems.map((item) => (
           <IdeaEntry

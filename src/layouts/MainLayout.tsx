@@ -1,28 +1,17 @@
 import React from "react";
-import { Link, useNavigate, useOutlet } from "react-router-dom";
+import { Link, useLoaderData, useNavigate, useOutlet } from "react-router-dom";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import styled from "styled-components";
+import { Image } from "@/components/atom";
 import { CardHeader } from "@/components/card/CardHeader";
 import { colors } from "@/theme";
+import defaultImg from "@/assets/default-img.png";
 
-const Nav = styled.nav`
-  display: flex;
-
-  border-bottom: 1px solid ${colors.white};
-
-  & > a {
-    flex: 1;
-
-    padding: 1rem;
-
-    text-align: center;
-    color: ${colors.gray_50};
-
-    &:hover {
-      background-color: ${colors.gray_800};
-    }
-  }
-`;
+type itemTmpResType = {
+  id: number;
+  imageUrl: string;
+  nodeName: string;
+};
 
 const Container = styled(motion.div)`
   position: relative;
@@ -39,10 +28,20 @@ const Container = styled(motion.div)`
   background-color: ${(props) => props.theme.card_background};
 `;
 
+const Idea = styled(Link)`
+  border: 1px solid ${(props) => props.theme.background_text};
+  padding: 1rem;
+`;
+
 export const MainLayout: React.FC = () => {
   const outlet = useOutlet();
   const navigate = useNavigate();
+  const ideaArray = useLoaderData() as Array<itemTmpResType>;
   const dragControls = useDragControls();
+
+  React.useEffect(() => {
+    console.log("Idea Array was changed");
+  }, [ideaArray]);
 
   return (
     <div
@@ -53,31 +52,55 @@ export const MainLayout: React.FC = () => {
         height: "inherit",
       }}
     >
-      <Nav>
-        <Link to="">Home</Link>
-        <hr />
-        <Link to="ideaInfo/2">Idea Info</Link>
-        <hr />
-        <Link to="linkInfo/1">Link Info</Link>
-        <hr />
-        <Link to="linkedIdeas/2">Linked Ideas</Link>
-        <hr />
-        <Link to="ideaLinker/2">Idea Linker</Link>
-        <hr />
-        <Link to="ideaFactory">Idea Factory</Link>
-        <hr />
-        <Link to="linkFactory/219/220">Link Factory</Link>
-      </Nav>
       <div
         style={{
+          position: "relative",
+
           display: "flex",
-          flexGrow: 1,
+          flex: 1,
           justifyContent: "center",
           alignItems: "center",
 
-          height: "90%",
+          overflowX: "hidden",
+
+          /* minimum width */
+          height: "1px",
         }}
       >
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+
+            margin: "5rem",
+          }}
+        >
+          {ideaArray.map((idea) => (
+            <Idea key={idea.id} to={`/ideaInfo/${idea.id}`}>
+              <label
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+
+                  margin: "1rem 0.5rem",
+
+                  cursor: "pointer",
+
+                  color: colors.gray_50,
+                }}
+              >
+                <Image
+                  src={idea.imageUrl.length ? idea.imageUrl : defaultImg}
+                />
+                {idea.nodeName}
+              </label>
+            </Idea>
+          ))}
+        </div>
         <AnimatePresence mode="wait">
           {outlet === null ? undefined : (
             <Container

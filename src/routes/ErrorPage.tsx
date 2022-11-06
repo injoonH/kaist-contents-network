@@ -7,6 +7,10 @@ type errorType = {
   data: string;
   status: number;
   statusText: string;
+  message: string;
+  response: {
+    status: number;
+  };
 };
 
 const Page = styled.div`
@@ -34,13 +38,17 @@ const Element = styled.div`
 export const ErrorPage: React.FC = () => {
   const error = useRouteError() as errorType;
   console.log(error);
+
+  if (error.response.status === 401)
+    return <Navigate to="/login" replace={true} />;
+
   return (
     <Page>
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
       <p>
         <i>
-          {error.status} {error.data ?? error.statusText}
+          {error.status} {error.data ?? error.statusText ?? error.message}
         </i>
       </p>
     </Page>
@@ -50,10 +58,10 @@ export const ErrorPage: React.FC = () => {
 export const ErrorElement: React.FC = () => {
   const error = useRouteError() as AxiosError;
   console.log(error);
-  if (error.response?.status === 401) {
-    console.log("Not authenticated");
+
+  if (error.response?.status === 401)
     return <Navigate to="/login" replace={true} />;
-  }
+
   return (
     <Element>
       <h1>Oops!</h1>
