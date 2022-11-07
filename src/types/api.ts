@@ -6,6 +6,11 @@ type contentType = {
   title: string;
 };
 
+type reqContentType = {
+  url: string;
+  title: string;
+};
+
 type apiAuthorType = {
   ko: authorType;
   en: authorType;
@@ -66,11 +71,13 @@ export type linkFactoryResType = {
 };
 
 export type ideaReqType = {
-  srcId: number;
   title: string;
-  nodeDescription: string;
-  edgeDescription: string;
+  description: string;
   imageSource: string;
-  nodeContents: Array<{ url: string; title: string }>;
-  edgeContents: Array<{ url: string; title: string }>;
+  edge: {
+    srcId: number;
+    description: string;
+    contents: Array<reqContentType>;
+  };
+  contents: Array<reqContentType>;
 };

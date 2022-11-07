@@ -127,13 +127,15 @@ export const IdeaFactory: React.FC = () => {
   const linkRelatedContentsFactory = useRelatedContentsFactory();
 
   const reqData = React.useRef<ideaReqType>({
-    srcId: srcIdea?.id,
     title: "",
-    nodeDescription: "",
-    edgeDescription: "",
+    description: "",
     imageSource: "",
-    nodeContents: [],
-    edgeContents: [],
+    edge: {
+      srcId: srcIdea.id,
+      description: "",
+      contents: [],
+    },
+    contents: [],
   });
 
   if (srcIdea === undefined) return <></>;
@@ -152,8 +154,8 @@ export const IdeaFactory: React.FC = () => {
             reqData.current = {
               ...reqData.current,
               title: titleRef.current?.value ?? "",
-              nodeDescription: ideaDescriptionRef.current?.value ?? "",
-              nodeContents: ideaRelatedContentsFactory.relatedContents.map(
+              description: ideaDescriptionRef.current?.value ?? "",
+              contents: ideaRelatedContentsFactory.relatedContents.map(
                 (content) => ({ url: content.url, title: content.title })
               ),
             };
@@ -172,40 +174,20 @@ export const IdeaFactory: React.FC = () => {
           submitHandler={async () => {
             reqData.current = {
               ...reqData.current,
-              edgeDescription: linkDescriptionRef.current?.value ?? "",
-              edgeContents: linkRelatedContentsFactory.relatedContents.map(
-                (content) => ({ url: content.url, title: content.title })
-              ),
+              edge: {
+                srcId: srcIdea.id,
+                description: linkDescriptionRef.current?.value ?? "",
+                contents: linkRelatedContentsFactory.relatedContents.map(
+                  (content) => ({ url: content.url, title: content.title })
+                ),
+              },
             };
 
-            // TODO: POST data & remove codes below
+            const res = await axios.post("nodes", reqData.current);
 
-            const ideaRes = await axios.post("nodes", {
-              title: reqData.current.title,
-              description: reqData.current.nodeDescription,
-              imageSource: reqData.current.imageSource,
-              contents: reqData.current.nodeContents,
-            });
+            console.log(res);
 
-            if (ideaRes.status !== 201) {
-              console.log("Failed to create an idea");
-              return;
-            }
-
-            const linkRes = await axios.post("links", {
-              srcId: reqData.current.srcId,
-              destId: ideaRes.data.id,
-              description: reqData.current.edgeDescription,
-              contents: reqData.current.edgeContents,
-            });
-
-            if (linkRes.status !== 201) {
-              console.log("Failed to create a link");
-              return;
-            }
-
-            console.log("Successfully created an idea");
-            navigate(`/linkInfo/${linkRes.data.id}`);
+            // TODO: Navigate to linkInfo
           }}
         />
       )}
