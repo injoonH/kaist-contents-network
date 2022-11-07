@@ -22,8 +22,8 @@ export const LinkFactory: React.FC = () => {
   const submitHandler = async () => {
     const description = descriptionRef.current?.value ?? "";
     const res = await axios.post("/links", {
-      srcId: srcIdea,
-      destId: dstIdea,
+      srcId: srcIdea.id,
+      destId: dstIdea.id,
       description: description,
       contents: relatedContents.map((content) => ({
         url: content.url,
@@ -34,7 +34,7 @@ export const LinkFactory: React.FC = () => {
     console.log(res);
 
     if (res.status === 201) navigate(`/linkInfo/${res.data.id}`);
-    else console.log("failed to post a link");
+    else console.log("Failed to post a link");
   };
 
   return (
