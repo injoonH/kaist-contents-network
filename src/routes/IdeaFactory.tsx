@@ -131,7 +131,7 @@ export const IdeaFactory: React.FC = () => {
     description: "",
     imageSource: "",
     edge: {
-      srcId: srcIdea.id,
+      srcId: srcIdea?.id,
       description: "",
       contents: [],
     },
@@ -184,10 +184,8 @@ export const IdeaFactory: React.FC = () => {
             };
 
             const res = await axios.post("nodes", reqData.current);
-
             console.log(res);
-
-            // TODO: Navigate to linkInfo
+            navigate(`/linkInfo/${res.data.edgeId}`);
           }}
         />
       )}
