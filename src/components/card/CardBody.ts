@@ -4,9 +4,10 @@ export const CardBody = {
   scroll: styled.div`
     flex: 1;
 
-    overflow-y: scroll;
+    overflow-y: auto;
+    scrollbar-gutter: stable both-edges;
 
-    padding: 3.2rem 1.5rem 1.6rem 3.2rem;
+    padding: 3.2rem 1.5rem 1.6rem;
     height: 100%;
   `,
   fix: styled.div`
@@ -14,9 +15,10 @@ export const CardBody = {
   `,
   list: styled.div`
     flex: 1;
-    padding-left: 3.2rem;
-    padding-right: 1.5rem;
 
-    overflow-y: scroll;
+    overflow-y: auto;
+    scrollbar-gutter: stable both-edges;
+
+    padding: 0 1.5rem;
   `,
 };
