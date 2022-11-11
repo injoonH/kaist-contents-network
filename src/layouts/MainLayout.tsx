@@ -13,8 +13,12 @@ type itemTmpResType = {
   nodeName: string;
 };
 
+const cardMargin = "3rem";
+
 const Container = styled(motion.div)`
-  position: relative;
+  position: absolute;
+  top: ${cardMargin};
+  bottom: ${cardMargin};
 
   display: flex;
   flex-direction: column;
@@ -23,7 +27,6 @@ const Container = styled(motion.div)`
 
   border-radius: ${(props) => props.theme.border_radius_big};
   width: 40rem;
-  height: 90%;
 
   background-color: ${(props) => props.theme.card_background};
 `;
@@ -38,10 +41,6 @@ export const MainLayout: React.FC = () => {
   const navigate = useNavigate();
   const ideaArray = useLoaderData() as Array<itemTmpResType>;
   const dragControls = useDragControls();
-
-  React.useEffect(() => {
-    console.log("Idea Array was changed");
-  }, [ideaArray]);
 
   return (
     <div
@@ -104,18 +103,17 @@ export const MainLayout: React.FC = () => {
         <AnimatePresence mode="wait">
           {outlet === null ? undefined : (
             <Container
-              initial={{ x: "calc(50vw + 100%)" }}
-              animate={{ x: 0 }}
-              exit={{ x: "calc(50vw + 100%)" }}
+              initial={{ right: `-50rem` }}
+              animate={{ right: "3rem" }}
+              exit={{ right: `-50rem` }}
               drag="x"
               dragListener={false}
               dragControls={dragControls}
               dragConstraints={{ left: 0 }}
               dragSnapToOrigin
               dragElastic={0.2}
-              onDragEnd={(_, info) => {
-                const offset = info.offset.x;
-                if (offset > 300) navigate("/");
+              onDragEnd={(_, { offset, velocity }) => {
+                if (Math.abs(offset.x) * velocity.x > 10000) navigate("/");
               }}
             >
               <CardHeader startDrag={(event) => dragControls.start(event)} />

@@ -73,7 +73,6 @@ export type linkFactoryResType = {
 export type ideaReqType = {
   title: string;
   description: string;
-  imageSource: string;
   edge: {
     srcId: number;
     description: string;

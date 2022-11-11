@@ -1,9 +1,9 @@
 import React from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { CardBody } from "@/components/card";
-import { Button, Divider, Text } from "@/components/atom";
+import { Button, Divider, Flex, Text } from "@/components/atom";
 import { IdeaProfile } from "@/components/entry";
-import { TextArea, TitleInput } from "@/components/input";
+import { ImageInput, TextArea, TitleInput } from "@/components/input";
 import { useRelatedContentsFactory } from "@/hooks";
 import { ideaReqType, itemResType } from "@/types";
 import axios from "@/utils/axios";
@@ -12,6 +12,8 @@ import defaultImg from "@/assets/default-img.png";
 const IdeaCreator: React.FC<{
   titleRef: React.RefObject<HTMLInputElement>;
   descriptionRef: React.RefObject<HTMLTextAreaElement>;
+  imgBlobUrl: string;
+  setImgFile: React.Dispatch<React.SetStateAction<File | undefined>>;
   RCList: Array<JSX.Element>;
   RCCreateButton: JSX.Element;
   RCModal: JSX.Element;
@@ -19,6 +21,8 @@ const IdeaCreator: React.FC<{
 }> = ({
   titleRef,
   descriptionRef,
+  imgBlobUrl,
+  setImgFile,
   RCList,
   RCCreateButton,
   RCModal,
@@ -34,8 +38,10 @@ const IdeaCreator: React.FC<{
           submitHandler();
         }}
       >
-        {/* TODO: Add image input */}
-        <TitleInput ref={titleRef} placeholder="Idea*" required />
+        <Flex.column_center gap="0.8rem">
+          <ImageInput imgBlobUrl={imgBlobUrl} setImgFile={setImgFile} />
+          <TitleInput ref={titleRef} placeholder="Idea*" required />
+        </Flex.column_center>
         <Divider />
         <Text.subtitle>Description*</Text.subtitle>
         <TextArea
@@ -120,16 +126,17 @@ export const IdeaFactory: React.FC = () => {
     React.useState<boolean>(true);
 
   const titleRef = React.useRef<HTMLInputElement>(null);
-  const imgSrc = "";
+  const [imgFile, setImgFile] = React.useState<File>();
   const ideaDescriptionRef = React.useRef<HTMLTextAreaElement>(null);
   const linkDescriptionRef = React.useRef<HTMLTextAreaElement>(null);
   const ideaRelatedContentsFactory = useRelatedContentsFactory();
   const linkRelatedContentsFactory = useRelatedContentsFactory();
 
+  const imgBlobUrl = imgFile === undefined ? "" : URL.createObjectURL(imgFile);
+
   const reqData = React.useRef<ideaReqType>({
     title: "",
     description: "",
-    imageSource: "",
     edge: {
       srcId: srcIdea?.id,
       description: "",
@@ -146,11 +153,12 @@ export const IdeaFactory: React.FC = () => {
         <IdeaCreator
           titleRef={titleRef}
           descriptionRef={ideaDescriptionRef}
+          imgBlobUrl={imgBlobUrl}
+          setImgFile={setImgFile}
           RCList={ideaRelatedContentsFactory.RCList}
           RCCreateButton={ideaRelatedContentsFactory.RCCreateButton}
           RCModal={ideaRelatedContentsFactory.RCModal}
           submitHandler={() => {
-            // TODO: Add imageSource
             reqData.current = {
               ...reqData.current,
               title: titleRef.current?.value ?? "",
@@ -166,7 +174,7 @@ export const IdeaFactory: React.FC = () => {
         <LinkCreator
           srcIdea={srcIdea}
           title={reqData.current.title}
-          imgSrc={imgSrc}
+          imgSrc={imgBlobUrl}
           descriptionRef={linkDescriptionRef}
           RCList={linkRelatedContentsFactory.RCList}
           RCCreateButton={linkRelatedContentsFactory.RCCreateButton}
@@ -183,8 +191,19 @@ export const IdeaFactory: React.FC = () => {
               },
             };
 
-            const res = await axios.post("nodes", reqData.current);
-            console.log(res);
+            const formData = new FormData();
+            formData.append("title", reqData.current.title);
+            formData.append("description", reqData.current.description);
+            formData.append("edge", JSON.stringify(reqData.current.edge));
+            formData.append(
+              "contents",
+              JSON.stringify(reqData.current.contents)
+            );
+            if (imgFile !== undefined) formData.append("file", imgFile);
+
+            const res = await axios.post("nodes", formData, {
+              headers: { "Content-Type": "multipart/form-data" },
+            });
             navigate(`/linkInfo/${res.data.edgeId}`);
           }}
         />

@@ -30,9 +30,6 @@ export const LinkFactory: React.FC = () => {
         title: content.title,
       })),
     });
-
-    console.log(res);
-
     if (res.status === 201) navigate(`/linkInfo/${res.data.id}`);
     else console.log("Failed to post a link");
   };
