@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { colors } from "@/theme";
 
+const padding = "2rem";
+
 const Deck = styled.div`
   overflow: hidden;
 
@@ -20,14 +22,25 @@ const TutorialCard = styled(motion.div)`
   align-items: center;
   gap: 2rem;
 
-  padding: 3rem 3rem 0;
+  padding: ${padding} ${padding} 0;
+
+  & > img {
+    max-width: 100%;
+  }
+
+  & > p {
+    width: 100%;
+
+    white-space: pre-wrap;
+  }
 `;
 
 const Footer = styled.footer`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 
-  padding: 1.4rem 3rem;
+  margin-top: 1rem;
+  padding: 1.4rem ${padding};
 
   font-size: 1.6rem;
 
