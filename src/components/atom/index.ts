@@ -5,3 +5,4 @@ export * from "./Flex";
 export * from "./Image";
 export * from "./Modal";
 export * from "./Text";
+export * from "./Tutorial";

@@ -1,11 +1,13 @@
 import React from "react";
 import { Link, useLoaderData, useNavigate, useOutlet } from "react-router-dom";
+import { IoHelpCircle } from "react-icons/io5";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import styled from "styled-components";
-import { Image } from "@/components/atom";
+import { Image, Modal, Tutorial } from "@/components/atom";
 import { CardHeader } from "@/components/card/CardHeader";
 import { colors } from "@/theme";
 import defaultImg from "@/assets/default-img.png";
+import tutorial from "@/data/tutorial.json";
 
 type itemTmpResType = {
   id: number;
@@ -36,11 +38,30 @@ const Idea = styled(Link)`
   padding: 1rem;
 `;
 
+const TutorialButton = styled.button`
+  position: absolute;
+  bottom: ${cardMargin};
+  left: ${cardMargin};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 4rem;
+  height: 4rem;
+
+  background: none;
+
+  font-size: 4rem;
+  color: ${colors.gray_500};
+`;
+
 export const MainLayout: React.FC = () => {
   const outlet = useOutlet();
   const navigate = useNavigate();
   const ideaArray = useLoaderData() as Array<itemTmpResType>;
   const dragControls = useDragControls();
+  const [tutorialOpened, setTutorialOpened] = React.useState<boolean>(false);
 
   return (
     <div
@@ -121,6 +142,25 @@ export const MainLayout: React.FC = () => {
             </Container>
           )}
         </AnimatePresence>
+        <TutorialButton onClick={() => setTutorialOpened(true)}>
+          <IoHelpCircle />
+        </TutorialButton>
+        <Modal
+          isOpened={tutorialOpened}
+          closeHandler={() => setTutorialOpened(false)}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+
+            width: "clamp(40rem, 50%, 60rem)",
+          }}
+        >
+          <Tutorial
+            pages={tutorial}
+            closeHandler={() => setTutorialOpened(false)}
+          />
+        </Modal>
       </div>
     </div>
   );

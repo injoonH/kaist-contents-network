@@ -21,7 +21,8 @@ export const Modal: React.FC<{
   isOpened: boolean;
   closeHandler: React.MouseEventHandler;
   children: React.ReactNode;
-}> = ({ isOpened, closeHandler, children }) => {
+  style?: React.CSSProperties;
+}> = ({ isOpened, closeHandler, children, style }) => {
   return (
     <AnimatePresence initial={false} mode="wait">
       {isOpened && (
@@ -36,7 +37,7 @@ export const Modal: React.FC<{
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            style={{ width: "70%" }}
+            style={{ width: "fit-content", height: "fit-content", ...style }}
           >
             {children}
           </motion.div>
