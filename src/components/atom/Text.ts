@@ -18,6 +18,7 @@ export const Text = {
     color: ${(params) => params.theme.subtitle};
   `,
   paragraph: styled.p`
+    white-space: pre-wrap;
     font-size: 1.6rem;
     color: ${(params) => params.theme.paragraph};
   `,
