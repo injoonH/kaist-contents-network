@@ -20,7 +20,7 @@ const Area = styled.label`
   background-color: ${(props) => props.theme.image_background};
   cursor: pointer;
 
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: ${(props) => props.theme.input_placeholder};
 
   & > input {
@@ -38,13 +38,19 @@ export const ImageInput: React.FC<{
 }> = ({ imgBlobUrl, setImgFile }) => {
   return (
     <Flex.center>
-      <Area>
+      <Area
+        onDrop={(event) => {
+          event.preventDefault();
+          setImgFile(event.dataTransfer.files[0]);
+        }}
+        onDragOver={(event) => event.preventDefault()}
+      >
         {imgBlobUrl.length ? (
           <Image src={imgBlobUrl} size={imgSize} />
         ) : (
           <>
             <IoImage />
-            <span>Upload</span>
+            <span>Drag or Upload</span>
           </>
         )}
         <input
