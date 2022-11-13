@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import styled from "styled-components";
 import { Image, Modal, Tutorial } from "@/components/atom";
 import { CardHeader } from "@/components/card/CardHeader";
+import { Searchbar } from "@/components/searchbar";
 import { colors } from "@/theme";
 import defaultImg from "@/assets/default-img.svg";
 import tutorial from "@/data/tutorial.json";
@@ -34,7 +35,6 @@ const Container = styled(motion.div)`
 `;
 
 const Idea = styled(Link)`
-  border: 1px solid ${(props) => props.theme.background_text};
   padding: 1rem;
 `;
 
@@ -142,6 +142,12 @@ export const MainLayout: React.FC = () => {
             </Container>
           )}
         </AnimatePresence>
+        <Searchbar
+          ideas={ideaArray.map((idea) => ({
+            id: idea.id,
+            title: idea.nodeName,
+          }))}
+        />
         <TutorialButton onClick={() => setTutorialOpened(true)}>
           <IoHelpCircle />
         </TutorialButton>
