@@ -12,7 +12,7 @@ import {
 import { CardBody } from "@/components/card";
 import { AuthorEntry, RelatedContentEntry } from "@/components/entry";
 import { itemResType } from "@/types";
-import defaultImg from "@/assets/default-img.png";
+import defaultImg from "@/assets/default-img.svg";
 
 export const IdeaInfo: React.FC = () => {
   const navigate = useNavigate();

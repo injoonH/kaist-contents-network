@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { Image, Modal, Tutorial } from "@/components/atom";
 import { CardHeader } from "@/components/card/CardHeader";
 import { colors } from "@/theme";
-import defaultImg from "@/assets/default-img.png";
+import defaultImg from "@/assets/default-img.svg";
 import tutorial from "@/data/tutorial.json";
 
 type itemTmpResType = {

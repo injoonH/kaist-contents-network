@@ -13,7 +13,7 @@ import { CardBody } from "@/components/card";
 import { AuthorEntry, RelatedContentEntry } from "@/components/entry";
 import { ideaProfileResType, linkResType } from "@/types";
 import axios from "@/utils/axios";
-import defaultImg from "@/assets/default-img.png";
+import defaultImg from "@/assets/default-img.svg";
 
 const Profile: React.FC<{ idea: ideaProfileResType }> = ({ idea }) => {
   const navigate = useNavigate();

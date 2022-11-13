@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Counter, Image, Text } from "@/components/atom";
 import { ideaProfileType } from "@/types";
-import defaultImg from "@/assets/default-img.png";
+import defaultImg from "@/assets/default-img.svg";
 
 const Entry = styled.div`
   display: flex;

@@ -7,7 +7,7 @@ import { ImageInput, TextArea, TitleInput } from "@/components/input";
 import { useRelatedContentsFactory } from "@/hooks";
 import { ideaReqType, itemResType } from "@/types";
 import axios from "@/utils/axios";
-import defaultImg from "@/assets/default-img.png";
+import defaultImg from "@/assets/default-img.svg";
 
 const IdeaCreator: React.FC<{
   titleRef: React.RefObject<HTMLInputElement>;

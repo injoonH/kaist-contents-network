@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Counter, Flex, Image } from "@/components/atom";
 import { colors, fonts } from "@/theme";
 import { ideaEntryType } from "@/types";
-import defaultImg from "@/assets/default-img.png";
+import defaultImg from "@/assets/default-img.svg";
 
 const Entry = styled.div<{ selected?: boolean }>`
   display: flex;
