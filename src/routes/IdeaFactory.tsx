@@ -10,6 +10,16 @@ import { ideaReqType, itemResType } from "@/types";
 import axios from "@/utils/axios";
 import defaultImg from "@/assets/default-img.svg";
 
+const Warn: React.FC = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Flex.center style={{ height: "3.6rem" }}>
+      <Text.warn>※ {t("warn.mustCreateLink")}</Text.warn>
+    </Flex.center>
+  );
+};
+
 const IdeaCreator: React.FC<{
   titleRef: React.RefObject<HTMLInputElement>;
   descriptionRef: React.RefObject<HTMLTextAreaElement>;
@@ -40,7 +50,9 @@ const IdeaCreator: React.FC<{
           event.preventDefault();
           submitHandler();
         }}
+        style={{ paddingTop: 0 }}
       >
+        <Warn />
         <Flex.column_center gap="0.8rem">
           <ImageInput imgBlobUrl={imgBlobUrl} setImgFile={setImgFile} />
           <TitleInput
@@ -97,7 +109,9 @@ const LinkCreator: React.FC<{
           event.preventDefault();
           submitHandler();
         }}
+        style={{ paddingTop: 0 }}
       >
+        <Warn />
         <IdeaProfile
           title={srcIdea.title}
           imgSrc={srcIdea.imageSource}

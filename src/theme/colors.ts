@@ -20,4 +20,5 @@ export default {
   teritary: "#9bbdff",
 
   pink: "#f58297",
+  red: "#e74c3c",
 };

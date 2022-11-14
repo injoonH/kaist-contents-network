@@ -35,4 +35,10 @@ export const Text = {
     font-weight: ${fonts.fw_bold};
     color: ${(params) => params.theme.title};
   `,
+  warn: styled.p`
+    text-align: center;
+
+    font-size: 1.2rem;
+    color: ${(params) => params.theme.warn};
+  `,
 };

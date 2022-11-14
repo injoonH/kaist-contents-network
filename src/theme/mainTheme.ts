@@ -28,6 +28,7 @@ export default {
   subtext: text.light,
   subtitle: text.dark,
   title: colors.primary,
+  warn: colors.red,
 
   border_radius_big: "11px",
   border_radius_small: "5px",

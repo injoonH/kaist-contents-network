@@ -48,6 +48,10 @@ const resources: Resource = {
       tutorial: {
         page: "page {{current}} of {{total}}",
       },
+      warn: {
+        mustCreateLink:
+          "Leaving without creating a link, you will lose your idea.",
+      },
     },
   },
   ko: {
@@ -95,6 +99,9 @@ const resources: Resource = {
       },
       tutorial: {
         page: "{{total}} 페이지 중 {{current}} 페이지",
+      },
+      warn: {
+        mustCreateLink: "링크를 생성하지 않고 나가면 아이디어를 잃게 됩니다.",
       },
     },
   },
