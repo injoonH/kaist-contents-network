@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { colors, fonts } from "@/theme";
-import { useParams } from "react-router-dom";
 
 export const Button = styled.button`
   margin: 1.6rem;
