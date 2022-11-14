@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { IoGitCommitOutline } from "react-icons/io5";
 import {
@@ -15,10 +16,14 @@ import { itemResType } from "@/types";
 import defaultImg from "@/assets/default-img.svg";
 
 export const IdeaInfo: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const data = useLoaderData() as itemResType;
 
   if (data === undefined) return <></>;
+
+  const author = i18n.language === "ko" ? data.author.ko : data.author.en;
+
   return (
     <>
       <CardBody.scroll>
@@ -28,21 +33,23 @@ export const IdeaInfo: React.FC = () => {
             size="18rem"
           />
           <Flex.column_center style={{ width: "100%" }}>
-            <Text.ideaId>Idea {data.id}</Text.ideaId>
+            <Text.ideaId>
+              {t("atom.idea")} {data.id}
+            </Text.ideaId>
             <Text.title>{data.title}</Text.title>
           </Flex.column_center>
           <InfoButton onClick={() => navigate(`/linkedIdeas/${data.id}`)}>
             <IoGitCommitOutline />
-            Show Links ({data.linkedNodesCount})
+            {t("button.showLinks")} ({data.linkedNodesCount})
           </InfoButton>
         </Flex.column_center>
         <Divider />
-        <Text.subtitle>Description</Text.subtitle>
+        <Text.subtitle>{t("subtitle.description")}</Text.subtitle>
         <Text.paragraph>{data.description}</Text.paragraph>
         {data.contents.length === 0 ? undefined : (
           <>
             <Divider />
-            <Text.subtitle>Related Contents</Text.subtitle>
+            <Text.subtitle>{t("subtitle.relatedContents")}</Text.subtitle>
           </>
         )}
         {data.contents.map((content, idx) => (
@@ -55,13 +62,13 @@ export const IdeaInfo: React.FC = () => {
           />
         ))}
         <Divider />
-        <Text.subtitle>Author</Text.subtitle>
-        <AuthorEntry about="Name" val={data.author.en.name} />
-        <AuthorEntry about="Department" val={data.author.en.department} />
-        <AuthorEntry about="Course Level" val={data.author.en.courseLevel} />
+        <Text.subtitle>{t("subtitle.author")}</Text.subtitle>
+        <AuthorEntry about={t("author.name")} val={author.name} />
+        <AuthorEntry about={t("author.department")} val={author.department} />
+        <AuthorEntry about={t("author.courseLevel")} val={author.courseLevel} />
       </CardBody.scroll>
       <Button onClick={() => navigate(`/ideaLinker/${data.id}`)}>
-        Connect Idea
+        {t("button.connectIdea")}
       </Button>
     </>
   );

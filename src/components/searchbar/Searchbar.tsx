@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import styled from "styled-components";
@@ -67,6 +68,7 @@ const Divider = styled.hr`
 export const Searchbar: React.FC<{
   ideas: Array<{ id: number; title: string }>;
 }> = ({ ideas }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [inputVal, setInputVal] = React.useState<string>("");
@@ -89,7 +91,7 @@ export const Searchbar: React.FC<{
             isClosed.current = false;
           }}
           type="search"
-          placeholder="Search Ideas"
+          placeholder={t("placeholder.search") as string}
         />
       </InputWrapper>
       {isClosed.current ||

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { Button } from "@/components/atom";
 import { CardBody } from "@/components/card";
@@ -7,6 +8,7 @@ import { Search } from "@/components/input";
 import { relatedIdeasResType } from "@/types";
 
 export const IdeaLinker: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const data = useLoaderData() as relatedIdeasResType;
   const [searchQuery, setSearchQuery] = React.useState<string>("");
@@ -40,13 +42,13 @@ export const IdeaLinker: React.FC = () => {
         <Search
           value={searchQuery}
           setValue={setSearchQuery}
-          placeholder="Search Idea"
+          placeholder={t("placeholder.search") as string}
         />
       </CardBody.fix>
       <CardBody.list>
         <CreateIdeaButton
-          title="Create new idea"
-          description="Create new idea"
+          title={t("button.createNewIdea")}
+          description={t("button.createNewIdeaDescription")}
           onClickHandler={() => navigate(`/ideaFactory/${idea.id}`)}
         />
         {filteredLinkedItems.map((item) => (
@@ -68,7 +70,7 @@ export const IdeaLinker: React.FC = () => {
         disabled={selectedId === null}
         onClick={() => navigate(`/linkFactory/${idea.id}/${selectedId}`)}
       >
-        Connect Idea
+        {t("button.connectIdea")}
       </Button>
     </>
   );

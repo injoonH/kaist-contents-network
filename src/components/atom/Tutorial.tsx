@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { colors } from "@/theme";
@@ -80,6 +81,8 @@ export const Tutorial: React.FC<{
   pages: Array<{ src: string; description: string }>;
   closeHandler: () => void;
 }> = ({ pages, closeHandler }) => {
+  const { t } = useTranslation();
+
   const [[pageIdx, direction], setPage] = React.useState<[number, number]>([
     0, 0,
   ]);
@@ -115,11 +118,11 @@ export const Tutorial: React.FC<{
       <Footer>
         <div>
           {pageIdx === 0 ? undefined : (
-            <button onClick={() => swipe(-1)}>Prev</button>
+            <button onClick={() => swipe(-1)}>{t("atom.prev")}</button>
           )}
         </div>
         <span>
-          page {pageIdx + 1} of {pages.length}
+          {t("tutorial.page", { current: pageIdx + 1, total: pages.length })}
         </span>
         <div>
           <button
@@ -128,7 +131,7 @@ export const Tutorial: React.FC<{
               else swipe(1);
             }}
           >
-            {isLastPage ? "Done" : "Next"}
+            {t(isLastPage ? "atom.done" : "atom.next")}
           </button>
         </div>
       </Footer>

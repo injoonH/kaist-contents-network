@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { Counter, Image, Text } from "@/components/atom";
 import { ideaProfileType } from "@/types";
@@ -25,12 +26,18 @@ export const IdeaProfile: React.FC<ideaProfileType> = ({
   id,
   nLinkedItems,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Entry>
       <Image src={imgSrc.length ? imgSrc : defaultImg} size="6rem" />
       <InfoContainer>
         <Text.profileTitle>{title}</Text.profileTitle>
-        {id && <Text.ideaId>Idea {id}</Text.ideaId>}
+        {id && (
+          <Text.ideaId>
+            {t("atom.idea")} {id}
+          </Text.ideaId>
+        )}
       </InfoContainer>
       {nLinkedItems === undefined ? undefined : (
         <Counter icon="link" size="normal">

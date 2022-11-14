@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
+import "@/locale";
 import router from "@/router";
 import GlobalStyle from "@/theme/GlobalStyle";
 import theme from "@/theme/mainTheme";

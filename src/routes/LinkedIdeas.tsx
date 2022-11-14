@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { CardBody } from "@/components/card";
 import { IdeaEntry, IdeaProfile } from "@/components/entry";
@@ -6,6 +7,7 @@ import { Search } from "@/components/input";
 import { linkedIdeasResType } from "@/types";
 
 export const LinkedIdeas: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const data = useLoaderData() as linkedIdeasResType;
   const [searchQuery, setSearchQuery] = React.useState<string>("");
@@ -33,7 +35,7 @@ export const LinkedIdeas: React.FC = () => {
         <Search
           value={searchQuery}
           setValue={setSearchQuery}
-          placeholder="Search Idea"
+          placeholder={t("placeholder.search") as string}
         />
       </CardBody.fix>
       <CardBody.list style={{ marginBottom: "1.6rem" }}>

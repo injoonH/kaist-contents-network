@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { CardBody } from "@/components/card";
 import { Button, Divider, Flex, Text } from "@/components/atom";
@@ -28,6 +29,8 @@ const IdeaCreator: React.FC<{
   RCModal,
   submitHandler,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <CardBody.scroll
@@ -40,21 +43,25 @@ const IdeaCreator: React.FC<{
       >
         <Flex.column_center gap="0.8rem">
           <ImageInput imgBlobUrl={imgBlobUrl} setImgFile={setImgFile} />
-          <TitleInput ref={titleRef} placeholder="Idea*" required />
+          <TitleInput
+            ref={titleRef}
+            placeholder={`${t("placeholder.title")}*`}
+            required
+          />
         </Flex.column_center>
         <Divider />
-        <Text.subtitle>Description*</Text.subtitle>
+        <Text.subtitle>{t("subtitle.description")}*</Text.subtitle>
         <TextArea
           ref={descriptionRef}
-          placeholder="Enter a description"
+          placeholder={t("placeholder.description") as string}
           required
         />
         <Divider />
-        <Text.subtitle>Related Contents</Text.subtitle>
+        <Text.subtitle>{t("subtitle.relatedContents")}</Text.subtitle>
         {RCCreateButton}
         {RCList}
       </CardBody.scroll>
-      <Button form="ideaCreator">Create an Idea</Button>
+      <Button form="ideaCreator">{t("button.createIdea")}</Button>
       {RCModal}
     </>
   );
@@ -79,6 +86,8 @@ const LinkCreator: React.FC<{
   RCModal,
   submitHandler,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <CardBody.scroll
@@ -101,18 +110,18 @@ const LinkCreator: React.FC<{
           imgSrc={imgSrc.length ? imgSrc : defaultImg}
         />
         <Divider />
-        <Text.subtitle>Description*</Text.subtitle>
+        <Text.subtitle>{t("subtitle.description")}*</Text.subtitle>
         <TextArea
           ref={descriptionRef}
-          placeholder="Enter a description"
+          placeholder={t("placeholder.description") as string}
           required
         />
         <Divider />
-        <Text.subtitle>Related Contents</Text.subtitle>
+        <Text.subtitle>{t("subtitle.relatedContents")}</Text.subtitle>
         {RCCreateButton}
         {RCList}
       </CardBody.scroll>
-      <Button form="linkCreator">Link Ideas</Button>
+      <Button form="linkCreator">{t("button.linkIdeas")}</Button>
       {RCModal}
     </>
   );

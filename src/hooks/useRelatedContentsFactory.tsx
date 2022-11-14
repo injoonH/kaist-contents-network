@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Modal } from "@/components/atom";
 import {
   CreateRelatedContentButton,
@@ -24,6 +25,8 @@ export const useRelatedContentsFactory = (): {
   RCCreateButton: JSX.Element;
   RCModal: JSX.Element;
 } => {
+  const { t } = useTranslation();
+
   const [modalActive, setModalActive] = React.useState<boolean>(false);
   const [relatedContents, setRelatedContents] = React.useState<
     Array<contentType>
@@ -36,7 +39,7 @@ export const useRelatedContentsFactory = (): {
   const RCCreateButton = (
     <CreateRelatedContentButton
       clickHandler={() => setModalActive(true)}
-      description="Add related contents"
+      description={t("button.addRelatedContents")}
     />
   );
 

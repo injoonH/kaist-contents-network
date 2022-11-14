@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { IoImage } from "react-icons/io5";
 import styled from "styled-components";
 import { Flex, Image } from "@/components/atom";
@@ -36,6 +37,8 @@ export const ImageInput: React.FC<{
   imgBlobUrl: string;
   setImgFile: React.Dispatch<React.SetStateAction<File | undefined>>;
 }> = ({ imgBlobUrl, setImgFile }) => {
+  const { t } = useTranslation();
+
   return (
     <Flex.center>
       <Area
@@ -50,7 +53,7 @@ export const ImageInput: React.FC<{
         ) : (
           <>
             <IoImage />
-            <span>Drag or Upload</span>
+            <span>{t("placeholder.image")}</span>
           </>
         )}
         <input

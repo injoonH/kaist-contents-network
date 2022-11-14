@@ -1,9 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useLoaderData, useNavigate, useOutlet } from "react-router-dom";
 import { IoHelpCircle } from "react-icons/io5";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import styled from "styled-components";
-import { Image, Modal, Tutorial } from "@/components/atom";
+import { Image, LocaleButton, Modal, Tutorial } from "@/components/atom";
 import { CardHeader } from "@/components/card/CardHeader";
 import { Searchbar } from "@/components/searchbar";
 import { colors } from "@/theme";
@@ -57,6 +58,7 @@ const TutorialButton = styled.button`
 `;
 
 export const MainLayout: React.FC = () => {
+  const { i18n } = useTranslation();
   const outlet = useOutlet();
   const navigate = useNavigate();
   const ideaArray = useLoaderData() as Array<itemTmpResType>;
@@ -64,110 +66,113 @@ export const MainLayout: React.FC = () => {
   const [tutorialOpened, setTutorialOpened] = React.useState<boolean>(false);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-
-        height: "inherit",
-      }}
-    >
+    <>
       <div
         style={{
-          position: "relative",
-
           display: "flex",
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
+          flexDirection: "column",
 
-          overflowX: "hidden",
-
-          /* minimum width */
-          height: "1px",
+          height: "inherit",
         }}
       >
         <div
           style={{
-            position: "absolute",
-            left: 0,
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
+            position: "relative",
 
-            margin: "5rem",
-          }}
-        >
-          {ideaArray.map((idea) => (
-            <Idea key={idea.id} to={`/ideaInfo/${idea.id}`}>
-              <label
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-
-                  margin: "1rem 0.5rem",
-
-                  cursor: "pointer",
-
-                  color: colors.gray_50,
-                }}
-              >
-                <Image
-                  src={idea.imageUrl.length ? idea.imageUrl : defaultImg}
-                />
-                {idea.nodeName}
-              </label>
-            </Idea>
-          ))}
-        </div>
-        <AnimatePresence mode="wait">
-          {outlet === null ? undefined : (
-            <Container
-              initial={{ right: `-50rem` }}
-              animate={{ right: "3rem" }}
-              exit={{ right: `-50rem` }}
-              drag="x"
-              dragListener={false}
-              dragControls={dragControls}
-              dragConstraints={{ left: 0 }}
-              dragSnapToOrigin
-              dragElastic={0.2}
-              onDragEnd={(_, { offset, velocity }) => {
-                if (Math.abs(offset.x) * velocity.x > 10000) navigate("/");
-              }}
-            >
-              <CardHeader startDrag={(event) => dragControls.start(event)} />
-              {outlet}
-            </Container>
-          )}
-        </AnimatePresence>
-        <Searchbar
-          ideas={ideaArray.map((idea) => ({
-            id: idea.id,
-            title: idea.nodeName,
-          }))}
-        />
-        <TutorialButton onClick={() => setTutorialOpened(true)}>
-          <IoHelpCircle />
-        </TutorialButton>
-        <Modal
-          isOpened={tutorialOpened}
-          closeHandler={() => setTutorialOpened(false)}
-          style={{
             display: "flex",
+            flex: 1,
             justifyContent: "center",
             alignItems: "center",
 
-            width: "clamp(40rem, 50%, 60rem)",
+            overflowX: "hidden",
+
+            /* minimum width */
+            height: "1px",
           }}
         >
-          <Tutorial
-            pages={tutorial}
-            closeHandler={() => setTutorialOpened(false)}
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+
+              margin: "5rem",
+            }}
+          >
+            {ideaArray.map((idea) => (
+              <Idea key={idea.id} to={`/ideaInfo/${idea.id}`}>
+                <label
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+
+                    margin: "1rem 0.5rem",
+
+                    cursor: "pointer",
+
+                    color: colors.gray_50,
+                  }}
+                >
+                  <Image
+                    src={idea.imageUrl.length ? idea.imageUrl : defaultImg}
+                  />
+                  {idea.nodeName}
+                </label>
+              </Idea>
+            ))}
+          </div>
+          <AnimatePresence mode="wait">
+            {outlet === null ? undefined : (
+              <Container
+                initial={{ right: `-50rem` }}
+                animate={{ right: "3rem" }}
+                exit={{ right: `-50rem` }}
+                drag="x"
+                dragListener={false}
+                dragControls={dragControls}
+                dragConstraints={{ left: 0 }}
+                dragSnapToOrigin
+                dragElastic={0.2}
+                onDragEnd={(_, { offset, velocity }) => {
+                  if (Math.abs(offset.x) * velocity.x > 10000) navigate("/");
+                }}
+              >
+                <CardHeader startDrag={(event) => dragControls.start(event)} />
+                {outlet}
+              </Container>
+            )}
+          </AnimatePresence>
+          <Searchbar
+            ideas={ideaArray.map((idea) => ({
+              id: idea.id,
+              title: idea.nodeName,
+            }))}
           />
-        </Modal>
+          <TutorialButton onClick={() => setTutorialOpened(true)}>
+            <IoHelpCircle />
+          </TutorialButton>
+          <Modal
+            isOpened={tutorialOpened}
+            closeHandler={() => setTutorialOpened(false)}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+
+              width: "clamp(40rem, 50%, 60rem)",
+            }}
+          >
+            <Tutorial
+              pages={tutorial}
+              closeHandler={() => setTutorialOpened(false)}
+            />
+          </Modal>
+        </div>
       </div>
-    </div>
+      <LocaleButton />
+    </>
   );
 };

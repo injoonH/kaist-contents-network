@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { IoHeart } from "react-icons/io5";
 import {
@@ -16,6 +17,7 @@ import axios from "@/utils/axios";
 import defaultImg from "@/assets/default-img.svg";
 
 const Profile: React.FC<{ idea: ideaProfileResType }> = ({ idea }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
@@ -25,22 +27,28 @@ const Profile: React.FC<{ idea: ideaProfileResType }> = ({ idea }) => {
         size="11rem"
       />
       <Flex.column_center>
-        <Text.ideaId>Idea {idea.id}</Text.ideaId>
+        <Text.ideaId>
+          {t("atom.idea")} {idea.id}
+        </Text.ideaId>
         <Text.title style={{ fontSize: "2rem" }}>{idea.title}</Text.title>
       </Flex.column_center>
       <InfoButton onClick={() => navigate(`/ideaInfo/${idea.id}`)}>
-        Show Idea Info
+        {t("button.showIdeaInfo")}
       </InfoButton>
     </Flex.column_center>
   );
 };
 
 export const LinkInfo: React.FC = () => {
+  const { t, i18n } = useTranslation();
+
   const data = useLoaderData() as linkResType;
   const [isLiked, setIsLiked] = React.useState<boolean>(data?.isLiked);
   const [likesCount, setLikesCount] = React.useState<number>(data?.likesCount);
 
   if (data === undefined) return <></>;
+
+  const author = i18n.language === "ko" ? data.author.ko : data.author.en;
 
   const likeHandler = async () => {
     const res = await axios.post(
@@ -58,12 +66,12 @@ export const LinkInfo: React.FC = () => {
           <Profile idea={data.dest} />
         </Flex.plain>
         <Divider />
-        <Text.subtitle>Description</Text.subtitle>
+        <Text.subtitle>{t("subtitle.description")}</Text.subtitle>
         <Text.paragraph>{data.description}</Text.paragraph>
         {data.contents.length === 0 ? undefined : (
           <>
             <Divider />
-            <Text.subtitle>Related Contents</Text.subtitle>
+            <Text.subtitle>{t("subtitle.relatedContents")}</Text.subtitle>
           </>
         )}
         {data.contents.map((content, idx) => (
@@ -76,10 +84,10 @@ export const LinkInfo: React.FC = () => {
           />
         ))}
         <Divider />
-        <Text.subtitle>Author</Text.subtitle>
-        <AuthorEntry about="Name" val={data.author.en.name} />
-        <AuthorEntry about="Department" val={data.author.en.department} />
-        <AuthorEntry about="Course Level" val={data.author.en.courseLevel} />
+        <Text.subtitle>{t("subtitle.author")}</Text.subtitle>
+        <AuthorEntry about={t("author.name")} val={author.name} />
+        <AuthorEntry about={t("author.department")} val={author.department} />
+        <AuthorEntry about={t("author.courseLevel")} val={author.courseLevel} />
       </CardBody.scroll>
       <LikeButton liked={isLiked} onClick={likeHandler}>
         <IoHeart />

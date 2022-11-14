@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   IoAdd,
   IoChevronForward,
@@ -205,6 +206,8 @@ export const CreateRelatedContentModal: React.FC<{
   closeHandler: () => void;
   addHandler: () => void;
 }> = ({ titleRef, urlRef, closeHandler, addHandler }) => {
+  const { t } = useTranslation();
+
   return (
     <Modal
       onSubmit={(event) => {
@@ -214,14 +217,14 @@ export const CreateRelatedContentModal: React.FC<{
       }}
     >
       <div>
-        <Input ref={titleRef} placeholder="Title" />
+        <Input ref={titleRef} placeholder={t("atom.title") as string} />
         <Input ref={urlRef} placeholder="URL*" type="url" required />
       </div>
       <footer>
         <button type="button" onClick={closeHandler}>
-          Cancel
+          {t("atom.cancel")}
         </button>
-        <button style={{ color: colors.secondary }}>Add</button>
+        <button style={{ color: colors.secondary }}>{t("atom.add")}</button>
       </footer>
     </Modal>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { Button, Divider, Text } from "@/components/atom";
 import { CardBody } from "@/components/card";
@@ -9,6 +10,7 @@ import { linkFactoryResType } from "@/types";
 import axios from "@/utils/axios";
 
 export const LinkFactory: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const data = useLoaderData() as linkFactoryResType;
   const descriptionRef = React.useRef<HTMLTextAreaElement>(null);
@@ -58,18 +60,18 @@ export const LinkFactory: React.FC = () => {
           nLinkedItems={dstIdea.linkedNodesCount}
         />
         <Divider />
-        <Text.subtitle>Description*</Text.subtitle>
+        <Text.subtitle>{t("subtitle.description")}*</Text.subtitle>
         <TextArea
           ref={descriptionRef}
-          placeholder="Enter a description"
+          placeholder={t("placeholder.description") as string}
           required
         />
         <Divider />
-        <Text.subtitle>Related Contents</Text.subtitle>
+        <Text.subtitle>{t("subtitle.relatedContents")}</Text.subtitle>
         {RCCreateButton}
         {RCList}
       </CardBody.scroll>
-      <Button form="linkFactory">Link Ideas</Button>
+      <Button form="linkFactory">{t("button.linkIdeas")}</Button>
       {RCModal}
     </>
   );
