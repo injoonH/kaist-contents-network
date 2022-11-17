@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, useLoaderData, useNavigate, useOutlet } from "react-router-dom";
-import { IoHelpCircle } from "react-icons/io5";
+import { IoSettingsSharp } from "react-icons/io5";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import styled from "styled-components";
-import { Image, LocaleButton, Modal, Tutorial } from "@/components/atom";
+import { Image, Modal, Tutorial } from "@/components/atom";
 import { CardHeader } from "@/components/card/CardHeader";
 import { Rank } from "@/components/rank";
 import { Searchbar } from "@/components/searchbar";
+import { useSidebar } from "@/hooks";
 import { itemResType } from "@/types";
 import { colors } from "@/theme";
 import defaultImg from "@/assets/default-img.svg";
@@ -40,7 +41,7 @@ const Idea = styled(Link)`
   padding: 1rem;
 `;
 
-const TutorialButton = styled.button`
+const SettingsButton = styled.button`
   position: absolute;
   bottom: ${cardMargin};
   left: ${cardMargin};
@@ -49,12 +50,9 @@ const TutorialButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  width: 4rem;
-  height: 4rem;
-
   background: none;
 
-  font-size: 4rem;
+  font-size: 3rem;
   color: ${colors.gray_500};
 `;
 
@@ -67,6 +65,9 @@ export const MainLayout: React.FC = () => {
   };
   const dragControls = useDragControls();
   const [tutorialOpened, setTutorialOpened] = React.useState<boolean>(false);
+  const { Sidebar, isSidebarOpened, openSidebar } = useSidebar(() =>
+    setTutorialOpened(true)
+  );
 
   return (
     <div
@@ -92,7 +93,6 @@ export const MainLayout: React.FC = () => {
           height: "1px",
         }}
       >
-        <LocaleButton />
         <Rank ideas={topRankedIdeas} />
         <div
           style={{
@@ -151,9 +151,10 @@ export const MainLayout: React.FC = () => {
             </Container>
           )}
         </AnimatePresence>
-        <TutorialButton onClick={() => setTutorialOpened(true)}>
-          <IoHelpCircle />
-        </TutorialButton>
+        <SettingsButton onClick={openSidebar}>
+          <IoSettingsSharp />
+        </SettingsButton>
+        {isSidebarOpened ? Sidebar : undefined}
         <Modal
           isOpened={tutorialOpened}
           closeHandler={() => setTutorialOpened(false)}

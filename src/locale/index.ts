@@ -8,8 +8,11 @@ const resources: Resource = {
         add: "Add",
         cancel: "Cancel",
         done: "Done",
+        heart: "Heart",
+        hi: "Hi",
         idea: "Idea",
         language: "Language",
+        link: "Link",
         next: "Next",
         prev: "Prev",
         rank: "Rank",
@@ -48,6 +51,7 @@ const resources: Resource = {
       },
       tutorial: {
         page: "page {{current}} of {{total}}",
+        view: "View Tutorial",
       },
       warn: {
         mustCreateLink:
@@ -61,8 +65,11 @@ const resources: Resource = {
         add: "추가",
         cancel: "취소",
         done: "닫기",
+        heart: "하트",
+        hi: "안녕하세요",
         idea: "아이디어",
         language: "언어",
+        link: "링크",
         next: "다음",
         prev: "이전",
         rank: "랭크",
@@ -101,6 +108,7 @@ const resources: Resource = {
       },
       tutorial: {
         page: "{{total}} 페이지 중 {{current}} 페이지",
+        view: "튜토리얼 보기",
       },
       warn: {
         mustCreateLink: "링크를 생성하지 않고 나가면 아이디어를 잃게 됩니다.",
