@@ -154,7 +154,9 @@ export const MainLayout: React.FC = () => {
         <SettingsButton onClick={openSidebar}>
           <IoSettingsSharp />
         </SettingsButton>
-        {isSidebarOpened ? Sidebar : undefined}
+        <AnimatePresence>
+          {isSidebarOpened ? Sidebar : undefined}
+        </AnimatePresence>
         <Modal
           isOpened={tutorialOpened}
           closeHandler={() => setTutorialOpened(false)}

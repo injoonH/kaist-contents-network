@@ -1,10 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { IoClose } from "react-icons/io5";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { colors } from "@/theme";
 
-const Aside = styled.aside`
+const Aside = styled(motion.aside)`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -57,7 +58,6 @@ const Body = styled.section`
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   gap: 1.6rem;
 
   width: 100%;
@@ -112,7 +112,11 @@ export const Sidebar: React.FC<{
   const { t, i18n } = useTranslation();
 
   return (
-    <Aside>
+    <Aside
+      initial={{ left: "-40rem" }}
+      animate={{ left: 0 }}
+      exit={{ left: "-40rem" }}
+    >
       <Header>
         <IconBtn onClick={handleClose}>
           <IoClose />
