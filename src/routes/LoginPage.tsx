@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import { LocaleButton } from "@/components/atom";
 import { colors, fonts } from "@/theme";
 
 const Container = styled.div`
@@ -33,23 +32,28 @@ const Description = styled.p`
   color: ${colors.gray_400};
 `;
 
-const LoginButton = styled.a`
-  border: 1px solid ${colors.gray_200};
-  border-radius: ${(props) => props.theme.border_radius_small};
-  padding: 0.5em 1.5em;
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 1rem;
 
-  background-color: ${colors.gray_900};
+  & > * {
+    border: 1px solid ${colors.gray_200};
+    border-radius: ${(props) => props.theme.border_radius_small};
+    padding: 0.5em 1.5em;
 
-  font-size: 1.6rem;
-  color: ${colors.gray_200};
+    background-color: ${colors.gray_900};
 
-  &:hover {
-    background-color: ${colors.gray_800};
+    font-size: 1.6rem;
+    color: ${colors.gray_200};
+
+    &:hover {
+      background-color: ${colors.gray_800};
+    }
   }
 `;
 
 export const LoginPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <>
@@ -59,11 +63,19 @@ export const LoginPage: React.FC = () => {
           Contents Network
         </Title>
         <Description>{t("login.description")}</Description>
-        <LoginButton href={`${import.meta.env.VITE_API_BASE}/auth/sso_request`}>
-          {t("login.login")}
-        </LoginButton>
+        <ButtonContainer>
+          <a href={`${import.meta.env.VITE_API_BASE}/auth/sso_request`}>
+            {t("login.login")}
+          </a>
+          <button
+            onClick={() =>
+              i18n.changeLanguage(i18n.language === "ko" ? "en" : "ko")
+            }
+          >
+            {t("atom.language")}: <b>{i18n.language}</b>
+          </button>
+        </ButtonContainer>
       </Container>
-      <LocaleButton />
     </>
   );
 };

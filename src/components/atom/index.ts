@@ -3,7 +3,6 @@ export * from "./Counter";
 export * from "./Divider";
 export * from "./Flex";
 export * from "./Image";
-export * from "./Locale";
 export * from "./Modal";
 export * from "./Text";
 export * from "./Tutorial";
