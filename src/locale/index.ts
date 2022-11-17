@@ -12,6 +12,7 @@ const resources: Resource = {
         language: "Language",
         next: "Next",
         prev: "Prev",
+        rank: "Rank",
         title: "Title",
       },
       author: {
@@ -64,6 +65,7 @@ const resources: Resource = {
         language: "언어",
         next: "다음",
         prev: "이전",
+        rank: "랭크",
         title: "제목",
       },
       author: {
@@ -109,6 +111,6 @@ const resources: Resource = {
 
 i18n
   .use(initReactI18next)
-  .init({ lng: "ko", resources, interpolation: { escapeValue: false } });
+  .init({ lng: "en", resources, interpolation: { escapeValue: false } });
 
 export default i18n;

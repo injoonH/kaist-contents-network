@@ -35,7 +35,7 @@ const Description = styled.p`
 
 const LoginButton = styled.a`
   border: 1px solid ${colors.gray_200};
-  border-radius: 11px;
+  border-radius: ${(props) => props.theme.border_radius_small};
   padding: 0.5em 1.5em;
 
   background-color: ${colors.gray_900};
@@ -49,7 +49,7 @@ const LoginButton = styled.a`
 `;
 
 export const LoginPage: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <>

@@ -25,8 +25,14 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     loader: async () => {
-      const res = await axios.get(`nodes`);
-      return res.data;
+      const ideaRes = await axios.get(`nodes`);
+      const ideaArray = ideaRes.data as Array<itemResType>;
+
+      const rankRes = await axios.get(`graph/influence`);
+      const ranks = rankRes.data as Array<itemResType>;
+      const topRankedIdeas = ranks.slice(0, 5);
+
+      return { ideaArray, topRankedIdeas };
     },
     errorElement: <ErrorPage />,
     children: [

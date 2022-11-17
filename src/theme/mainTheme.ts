@@ -25,6 +25,7 @@ export default {
   like: colors.pink,
   navbar_shadow: colors.gray_200,
   paragraph: text.normal,
+  rank: colors.gray_100,
   subtext: text.light,
   subtitle: text.dark,
   title: colors.primary,

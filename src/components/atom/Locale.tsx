@@ -5,7 +5,7 @@ import { colors } from "@/theme";
 
 const Button = styled.button`
   position: absolute;
-  top: 3rem;
+  top: 25rem;
   left: 3rem;
 
   border: 1px solid ${colors.gray_200};
