@@ -3,7 +3,9 @@ import { useTranslation } from "react-i18next";
 import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { colors } from "@/theme";
+import { colors, fonts } from "@/theme";
+import { meGraphResType, meResType, userType } from "@/types";
+import axios from "@/utils/axios";
 
 const Aside = styled(motion.aside)`
   position: absolute;
@@ -62,24 +64,23 @@ const InfoContainer = styled.div`
 
   width: 100%;
 
-  & > span {
+  & > h3 {
     font-size: 2rem;
+    font-weight: ${fonts.fw_regular};
   }
+`;
 
-  & > ul {
-    width: 100%;
+const InfoGrid = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
 
-    & > li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+  width: 100%;
 
-      width: 100%;
-      padding: 0.4rem;
+  & > span {
+    padding: 0.4rem;
 
-      & > span:last-child {
-        text-align: end;
-      }
+    &:nth-child(even) {
+      text-align: end;
     }
   }
 `;
@@ -111,6 +112,42 @@ export const Sidebar: React.FC<{
 }> = ({ handleClose, openTutorial }) => {
   const { t, i18n } = useTranslation();
 
+  const [user, setUser] = React.useState<userType>({
+    ko: { name: "", department: "", courseLevel: "" },
+    en: { name: "", department: "", courseLevel: "" },
+    nIdeas: 0,
+    nLinks: 0,
+  });
+
+  React.useEffect(() => {
+    const updateUser = async () => {
+      const meRes = await axios.get("auth/me");
+      const me = meRes.data as meResType;
+
+      const meGraphRes = await axios.get("graph/me");
+      const meGraph = meGraphRes.data as meGraphResType;
+
+      setUser({
+        ko: {
+          name: me.name,
+          department: me.department,
+          courseLevel: me.position,
+        },
+        en: {
+          name: me.nameEn,
+          department: me.departmentEn,
+          courseLevel: me.positionEn,
+        },
+        nIdeas: meGraph.nodeCounts,
+        nLinks: meGraph.edgeCounts,
+      });
+    };
+
+    updateUser();
+  }, []);
+
+  const userLocale = i18n.language === "ko" ? user.ko : user.en;
+
   return (
     <Aside
       initial={{ left: "-40rem" }}
@@ -124,37 +161,31 @@ export const Sidebar: React.FC<{
       </Header>
       <Body>
         <InfoContainer>
-          <span>
+          <h3>
             {t("atom.hi")}, <b>즐거운 해파리</b>!
-          </span>
-          <ul>
-            <li>
-              <span>{t("author.name")}</span>
-              <span>황인준</span>
-            </li>
-            <li>
-              <span>{t("author.courseLevel")}</span>
-              <span>전산학부</span>
-            </li>
-            <li>
-              <span>{t("author.department")}</span>
-              <span>학사</span>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <span>{t("atom.idea")}</span>
-              <span>5개</span>
-            </li>
-            <li>
-              <span>{t("atom.link")}</span>
-              <span>3개</span>
-            </li>
-            <li>
-              <span>{t("atom.heart")}</span>
-              <span>11개</span>
-            </li>
-          </ul>
+          </h3>
+          <InfoGrid>
+            <span>{t("author.name")}</span>
+            <span>{userLocale.name}</span>
+            <span>{t("author.department")}</span>
+            <span>{userLocale.department}</span>
+            <span>{t("author.courseLevel")}</span>
+            <span>{userLocale.courseLevel}</span>
+          </InfoGrid>
+          <InfoGrid>
+            <span>{t("atom.idea")}</span>
+            <span>
+              {user.nIdeas}
+              {t("unit.count")}
+            </span>
+            <span>{t("atom.link")}</span>
+            <span>
+              {user.nLinks}
+              {t("unit.count")}
+            </span>
+            <span>{t("atom.heart")}</span>
+            <span>0{t("unit.count")}</span>
+          </InfoGrid>
         </InfoContainer>
         <ButtonContainer>
           <button

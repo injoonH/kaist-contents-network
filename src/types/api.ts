@@ -80,3 +80,20 @@ export type ideaReqType = {
   };
   contents: Array<reqContentType>;
 };
+
+export type meResType = {
+  id: number;
+  name: string;
+  nameEn: string;
+  email: string;
+  position: string;
+  positionEn: string;
+  department: string;
+  departmentEn: string;
+  yearOfEnterance: number;
+};
+
+export type meGraphResType = {
+  nodeCounts: number;
+  edgeCounts: number;
+};

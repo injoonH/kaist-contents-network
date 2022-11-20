@@ -40,3 +40,10 @@ export type ideaEntryType = {
   nLinkedItems: number;
   likes?: number;
 };
+
+export type userType = {
+  ko: authorType;
+  en: authorType;
+  nIdeas: number;
+  nLinks: number;
+};

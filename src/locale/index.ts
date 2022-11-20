@@ -53,6 +53,9 @@ const resources: Resource = {
         page: "page {{current}} of {{total}}",
         view: "View Tutorial",
       },
+      unit: {
+        count: "",
+      },
       warn: {
         mustCreateLink:
           "Leaving without creating a link, you will lose your idea.",
@@ -109,6 +112,9 @@ const resources: Resource = {
       tutorial: {
         page: "{{total}} 페이지 중 {{current}} 페이지",
         view: "튜토리얼 보기",
+      },
+      unit: {
+        count: "개",
       },
       warn: {
         mustCreateLink: "링크를 생성하지 않고 나가면 아이디어를 잃게 됩니다.",
