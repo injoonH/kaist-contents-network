@@ -19,8 +19,9 @@ export type relatedContentType = {
   title?: string;
 };
 
-export type authorType = {
+type authorType = {
   name: string;
+  nickname: string;
   department: string;
   courseLevel: string;
 };

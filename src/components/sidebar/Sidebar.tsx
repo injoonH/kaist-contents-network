@@ -113,8 +113,8 @@ export const Sidebar: React.FC<{
   const { t, i18n } = useTranslation();
 
   const [user, setUser] = React.useState<userType>({
-    ko: { name: "", department: "", courseLevel: "" },
-    en: { name: "", department: "", courseLevel: "" },
+    ko: { name: "", nickname: "", department: "", courseLevel: "" },
+    en: { name: "", nickname: "", department: "", courseLevel: "" },
     nIdeas: 0,
     nLinks: 0,
     nLikes: 0,
@@ -131,11 +131,13 @@ export const Sidebar: React.FC<{
       setUser({
         ko: {
           name: me.name,
+          nickname: me.nickname,
           department: me.department,
           courseLevel: me.position,
         },
         en: {
           name: me.nameEn,
+          nickname: me.nicknameEn,
           department: me.departmentEn,
           courseLevel: me.positionEn,
         },
@@ -164,7 +166,7 @@ export const Sidebar: React.FC<{
       <Body>
         <InfoContainer>
           <h3>
-            {t("atom.hi")}, <b>즐거운 해파리</b>!
+            {t("atom.hi")}, <b>{userLocale.nickname}</b>!
           </h3>
           <InfoGrid>
             <span>{t("author.name")}</span>

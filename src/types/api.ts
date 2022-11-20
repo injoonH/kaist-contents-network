@@ -1,4 +1,4 @@
-import { authorType, contentIconType } from "./local";
+import { contentIconType } from "./local";
 
 type contentType = {
   iconType: contentIconType;
@@ -9,6 +9,12 @@ type contentType = {
 type reqContentType = {
   url: string;
   title: string;
+};
+
+type authorType = {
+  name: string;
+  department: string;
+  courseLevel: string;
 };
 
 type apiAuthorType = {
@@ -84,7 +90,9 @@ export type ideaReqType = {
 export type meResType = {
   id: number;
   name: string;
+  nickname: string;
   nameEn: string;
+  nicknameEn: string;
   email: string;
   position: string;
   positionEn: string;
