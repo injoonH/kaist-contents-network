@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ErrorElement, ErrorPage, LoginPage } from "@/routes";
+import { ErrorElement, ErrorPage, LoginPage, PersonalDataPage } from "@/routes";
 import { MainLayout } from "@/layouts";
 import { IdeaInfo } from "@/routes/IdeaInfo";
 import { IdeaFactory } from "@/routes/IdeaFactory";
@@ -22,9 +22,17 @@ const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
+    path: "/agreePersonalDataUsage",
+    element: <PersonalDataPage />,
+  },
+  {
     path: "/",
     element: <MainLayout />,
-    loader: async () => {
+    loader: async ({ request }) => {
+      const url = new URL(request.url);
+      const uid = url.searchParams.get("join");
+      if (uid !== null) return { uid, agreePersonalDataUsage: false };
+
       const ideaRes = await axios.get(`nodes`);
       const ideaArray = ideaRes.data as Array<itemResType>;
 
@@ -32,7 +40,7 @@ const router = createBrowserRouter([
       const ranks = rankRes.data as Array<itemResType>;
       const topRankedIdeas = ranks.slice(0, 5);
 
-      return { ideaArray, topRankedIdeas };
+      return { ideaArray, topRankedIdeas, agreePersonalDataUsage: true };
     },
     errorElement: <ErrorPage />,
     children: [

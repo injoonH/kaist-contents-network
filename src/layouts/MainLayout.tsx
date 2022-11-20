@@ -1,5 +1,11 @@
 import React from "react";
-import { Link, useLoaderData, useNavigate, useOutlet } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  useLoaderData,
+  useNavigate,
+  useOutlet,
+} from "react-router-dom";
 import { IoSettingsSharp } from "react-icons/io5";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import styled from "styled-components";
@@ -59,15 +65,30 @@ const SettingsButton = styled.button`
 export const MainLayout: React.FC = () => {
   const outlet = useOutlet();
   const navigate = useNavigate();
-  const { ideaArray, topRankedIdeas } = useLoaderData() as {
-    ideaArray: Array<itemTmpResType>;
-    topRankedIdeas: Array<itemResType>;
-  };
-  const dragControls = useDragControls();
+  const loaderData = useLoaderData() as
+    | {
+        ideaArray: Array<itemTmpResType>;
+        topRankedIdeas: Array<itemResType>;
+        agreePersonalDataUsage: true;
+      }
+    | { uid: string; agreePersonalDataUsage: false };
+
   const [tutorialOpened, setTutorialOpened] = React.useState<boolean>(false);
+  const dragControls = useDragControls();
   const { Sidebar, isSidebarOpened, openSidebar } = useSidebar(() =>
     setTutorialOpened(true)
   );
+
+  if (!loaderData.agreePersonalDataUsage)
+    return (
+      <Navigate
+        to="/agreePersonalDataUsage"
+        replace={true}
+        state={{ uid: loaderData.uid }}
+      />
+    );
+
+  const { ideaArray, topRankedIdeas } = loaderData;
 
   return (
     <div
