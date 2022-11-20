@@ -46,4 +46,5 @@ export type userType = {
   en: authorType;
   nIdeas: number;
   nLinks: number;
+  nLikes: number;
 };

@@ -96,4 +96,5 @@ export type meResType = {
 export type meGraphResType = {
   nodeCounts: number;
   edgeCounts: number;
+  receivedEdgeLikeCounts: number;
 };

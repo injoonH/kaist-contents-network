@@ -117,6 +117,7 @@ export const Sidebar: React.FC<{
     en: { name: "", department: "", courseLevel: "" },
     nIdeas: 0,
     nLinks: 0,
+    nLikes: 0,
   });
 
   React.useEffect(() => {
@@ -140,6 +141,7 @@ export const Sidebar: React.FC<{
         },
         nIdeas: meGraph.nodeCounts,
         nLinks: meGraph.edgeCounts,
+        nLikes: meGraph.receivedEdgeLikeCounts,
       });
     };
 
@@ -184,7 +186,10 @@ export const Sidebar: React.FC<{
               {t("unit.count")}
             </span>
             <span>{t("atom.heart")}</span>
-            <span>0{t("unit.count")}</span>
+            <span>
+              {user.nLikes}
+              {t("unit.count")}
+            </span>
           </InfoGrid>
         </InfoContainer>
         <ButtonContainer>
