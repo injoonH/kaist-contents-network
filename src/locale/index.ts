@@ -50,6 +50,8 @@ const resources: Resource = {
         relatedContents: "Related Contents",
       },
       tutorial: {
+        initial:
+          "The initial tutorial can be terminated after you have verified all of them.",
         page: "page {{current}} of {{total}}",
         view: "View Tutorial",
       },
@@ -110,6 +112,7 @@ const resources: Resource = {
         relatedContents: "연관 콘텐츠",
       },
       tutorial: {
+        initial: "최초의 튜토리얼은 모두 확인한 후에 종료할 수 있습니다.",
         page: "{{total}} 페이지 중 {{current}} 페이지",
         view: "튜토리얼 보기",
       },

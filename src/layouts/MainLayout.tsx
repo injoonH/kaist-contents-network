@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   Link,
   Navigate,
@@ -63,6 +64,7 @@ const SettingsButton = styled.button`
 `;
 
 export const MainLayout: React.FC = () => {
+  const { t } = useTranslation();
   const outlet = useOutlet();
   const navigate = useNavigate();
   const loaderData = useLoaderData() as
@@ -73,7 +75,7 @@ export const MainLayout: React.FC = () => {
       }
     | { uid: string; agreePersonalDataUsage: false };
 
-  const [tutorialOpened, setTutorialOpened] = React.useState<boolean>(false);
+  const [tutorialOpened, setTutorialOpened] = React.useState<boolean>(true);
   const dragControls = useDragControls();
   const { Sidebar, isSidebarOpened, openSidebar } = useSidebar(() =>
     setTutorialOpened(true)
@@ -89,6 +91,7 @@ export const MainLayout: React.FC = () => {
     );
 
   const { ideaArray, topRankedIdeas } = loaderData;
+  const checkedTutorial = localStorage.getItem("checkedTutorial") === "true";
 
   return (
     <>
@@ -167,9 +170,12 @@ export const MainLayout: React.FC = () => {
       <AnimatePresence>{isSidebarOpened ? Sidebar : undefined}</AnimatePresence>
       <Modal
         isOpened={tutorialOpened}
-        closeHandler={() => setTutorialOpened(false)}
+        closeHandler={() => {
+          if (checkedTutorial) setTutorialOpened(false);
+        }}
         style={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
 
@@ -178,8 +184,17 @@ export const MainLayout: React.FC = () => {
       >
         <Tutorial
           pages={tutorial}
-          closeHandler={() => setTutorialOpened(false)}
+          closeHandler={() => {
+            if (!checkedTutorial)
+              localStorage.setItem("checkedTutorial", "true");
+            setTutorialOpened(false);
+          }}
         />
+        {checkedTutorial ? undefined : (
+          <p style={{ marginTop: "1rem", color: colors.gray_400 }}>
+            {t("tutorial.initial")}
+          </p>
+        )}
       </Modal>
     </>
   );

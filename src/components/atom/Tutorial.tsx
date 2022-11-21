@@ -7,9 +7,13 @@ import { colors } from "@/theme";
 const padding = "2rem";
 
 const Deck = styled.div`
+  display: flex;
+  flex-direction: column;
+
   overflow: hidden;
 
   border-radius: ${(props) => props.theme.border_radius_big};
+  height: 90rem;
 
   background-color: ${(props) => props.theme.card_background};
 
@@ -18,6 +22,7 @@ const Deck = styled.div`
 
 const TutorialCard = styled(motion.div)`
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -30,6 +35,7 @@ const TutorialCard = styled(motion.div)`
   }
 
   & > p {
+    flex: 1;
     width: 100%;
 
     white-space: pre-wrap;
