@@ -10,12 +10,17 @@ const containerPadding = "1.2rem";
 const Container = styled.div`
   position: absolute;
   top: 3rem;
+  left: 0;
+  right: 0;
 
   overflow: hidden;
 
+  margin: 0 auto;
   border: 1px solid ${colors.gray_300};
   border-radius: ${containerPadding};
   width: clamp(30rem, 25%, 50rem);
+
+  background-color: ${(props) => props.theme.background};
 
   color: ${(props) => props.theme.background_text};
 `;

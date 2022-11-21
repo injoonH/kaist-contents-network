@@ -91,30 +91,20 @@ export const MainLayout: React.FC = () => {
   const { ideaArray, topRankedIdeas } = loaderData;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
+    <>
+      <Rank ideas={topRankedIdeas} />
+      <SettingsButton onClick={openSidebar}>
+        <IoSettingsSharp />
+      </SettingsButton>
 
-        height: "inherit",
-      }}
-    >
       <div
         style={{
-          position: "relative",
-
           display: "flex",
-          flex: 1,
           justifyContent: "center",
           alignItems: "center",
-
-          overflowX: "hidden",
-
-          /* minimum width */
-          height: "1px",
+          height: "100%",
         }}
       >
-        <Rank ideas={topRankedIdeas} />
         <div
           style={{
             display: "grid",
@@ -145,56 +135,52 @@ export const MainLayout: React.FC = () => {
             </Idea>
           ))}
         </div>
-        <Searchbar
-          ideas={ideaArray.map((idea) => ({
-            id: idea.id,
-            title: idea.nodeName,
-          }))}
-        />
-        <AnimatePresence mode="wait">
-          {outlet === null ? undefined : (
-            <Container
-              initial={{ right: `-50rem` }}
-              animate={{ right: "3rem" }}
-              exit={{ right: `-50rem` }}
-              drag="x"
-              dragListener={false}
-              dragControls={dragControls}
-              dragConstraints={{ left: 0 }}
-              dragSnapToOrigin
-              dragElastic={0.2}
-              onDragEnd={(_, { offset, velocity }) => {
-                if (Math.abs(offset.x) * velocity.x > 10000) navigate("/");
-              }}
-            >
-              <CardHeader startDrag={(event) => dragControls.start(event)} />
-              {outlet}
-            </Container>
-          )}
-        </AnimatePresence>
-        <SettingsButton onClick={openSidebar}>
-          <IoSettingsSharp />
-        </SettingsButton>
-        <AnimatePresence>
-          {isSidebarOpened ? Sidebar : undefined}
-        </AnimatePresence>
-        <Modal
-          isOpened={tutorialOpened}
-          closeHandler={() => setTutorialOpened(false)}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-
-            width: "clamp(40rem, 50%, 60rem)",
-          }}
-        >
-          <Tutorial
-            pages={tutorial}
-            closeHandler={() => setTutorialOpened(false)}
-          />
-        </Modal>
       </div>
-    </div>
+
+      <Searchbar
+        ideas={ideaArray.map((idea) => ({
+          id: idea.id,
+          title: idea.nodeName,
+        }))}
+      />
+      <AnimatePresence mode="wait">
+        {outlet === null ? undefined : (
+          <Container
+            initial={{ right: `-50rem` }}
+            animate={{ right: "3rem" }}
+            exit={{ right: `-50rem` }}
+            drag="x"
+            dragListener={false}
+            dragControls={dragControls}
+            dragConstraints={{ left: 0 }}
+            dragSnapToOrigin
+            dragElastic={0.2}
+            onDragEnd={(_, { offset, velocity }) => {
+              if (Math.abs(offset.x) * velocity.x > 10000) navigate("/");
+            }}
+          >
+            <CardHeader startDrag={(event) => dragControls.start(event)} />
+            {outlet}
+          </Container>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>{isSidebarOpened ? Sidebar : undefined}</AnimatePresence>
+      <Modal
+        isOpened={tutorialOpened}
+        closeHandler={() => setTutorialOpened(false)}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+          width: "clamp(40rem, 50%, 60rem)",
+        }}
+      >
+        <Tutorial
+          pages={tutorial}
+          closeHandler={() => setTutorialOpened(false)}
+        />
+      </Modal>
+    </>
   );
 };
