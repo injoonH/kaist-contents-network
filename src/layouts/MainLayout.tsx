@@ -75,7 +75,10 @@ export const MainLayout: React.FC = () => {
       }
     | { uid: string; agreePersonalDataUsage: false };
 
-  const [tutorialOpened, setTutorialOpened] = React.useState<boolean>(true);
+  const checkedTutorial = localStorage.getItem("checkedTutorial") === "true";
+  const [tutorialOpened, setTutorialOpened] = React.useState<boolean>(
+    !checkedTutorial
+  );
   const dragControls = useDragControls();
   const { Sidebar, isSidebarOpened, openSidebar } = useSidebar(() =>
     setTutorialOpened(true)
@@ -91,7 +94,6 @@ export const MainLayout: React.FC = () => {
     );
 
   const { ideaArray, topRankedIdeas } = loaderData;
-  const checkedTutorial = localStorage.getItem("checkedTutorial") === "true";
 
   return (
     <>
