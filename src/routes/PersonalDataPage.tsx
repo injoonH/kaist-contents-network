@@ -102,12 +102,12 @@ export const PersonalDataPage: React.FC = () => {
 
             const formElement = event.target as HTMLFormElement;
             const formCollection = formElement.elements as FormCollectionType;
+            const value = formCollection.agree.value;
 
-            if (formCollection.agree.value === "true")
+            if (value === "true" || value === "false")
               window.location.href = `${
                 import.meta.env.VITE_API_BASE
-              }/auth/join/${uid}`;
-            else alert("Not Implemented Yet");
+              }/auth/join/${uid}?privacyAgreement=${value}`;
           }}
         >
           <p>
@@ -116,7 +116,7 @@ export const PersonalDataPage: React.FC = () => {
           </p>
           <Flex.center>
             <label>
-              <input type="radio" name="agree" value="true" />예
+              <input type="radio" name="agree" value="true" required />예
             </label>
             <label>
               <input type="radio" name="agree" value="false" />
