@@ -7,16 +7,17 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 2.4rem;
 
   height: 100%;
-  padding: 6rem;
+  padding: 2rem;
 `;
 
 const Title = styled.h1`
   font-size: 4.8rem;
   font-weight: ${fonts.fw_bold};
+  text-align: center;
   color: ${colors.gray_50};
 
   & > span {
@@ -33,7 +34,8 @@ const Description = styled.p`
 `;
 
 const ButtonContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: auto;
   gap: 1rem;
 
   & > * {
@@ -44,6 +46,7 @@ const ButtonContainer = styled.div`
     background-color: ${colors.gray_900};
 
     font-size: 1.6rem;
+    text-align: center;
     color: ${colors.gray_200};
 
     &:hover {
@@ -59,8 +62,7 @@ export const LoginPage: React.FC = () => {
     <>
       <Container>
         <Title>
-          <span>KAIST</span> <br />
-          Contents Network
+          <span>KAIST</span> Contents Network
         </Title>
         <Description>{t("login.description")}</Description>
         <ButtonContainer>
