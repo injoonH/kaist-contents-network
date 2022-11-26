@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { IoLanguage } from "react-icons/io5";
 import Particles from "react-particles";
 import { loadFull } from "tsparticles";
 import type { Engine } from "tsparticles-engine";
@@ -39,14 +40,17 @@ const Description = styled.p`
 `;
 
 const ButtonContainer = styled.div`
-  display: grid;
-  grid-template-columns: auto;
+  display: flex;
   gap: 1rem;
 
   & > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     border: 1px solid ${colors.gray_200};
     border-radius: ${(props) => props.theme.border_radius_small};
-    padding: 0.5em 1.5em;
+    padding: 0.8rem 2.4rem;
 
     background-color: ${colors.gray_900};
 
@@ -58,6 +62,12 @@ const ButtonContainer = styled.div`
       background-color: ${colors.gray_800};
     }
   }
+`;
+
+const LocaleButton = styled.button`
+  padding: 1rem;
+
+  font-size: 2rem;
 `;
 
 export const LoginPage: React.FC = () => {
@@ -151,13 +161,13 @@ export const LoginPage: React.FC = () => {
           <a href={`${import.meta.env.VITE_API_BASE}/auth/sso_request`}>
             {t("login.login")}
           </a>
-          <button
+          <LocaleButton
             onClick={() =>
-              i18n.changeLanguage(i18n.language === "ko" ? "en" : "ko")
+              i18n.changeLanguage(i18n.language === "en" ? "ko" : "en")
             }
           >
-            {t("atom.language")}: <b>{i18n.language}</b>
-          </button>
+            <IoLanguage />
+          </LocaleButton>
         </ButtonContainer>
       </Container>
     </>
